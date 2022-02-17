@@ -1,0 +1,24 @@
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 25%;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  
+  .left {
+    text-align: center;
+    left: 0;
+    background-color: antiquewhite ;
+  }
+  
+  
+  .right {
+    text-align: center;
+    right: 0;
+    background-color: antiquewhite;
+  }
