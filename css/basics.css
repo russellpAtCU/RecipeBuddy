@@ -1,0 +1,18 @@
+li a {
+    display: block;
+    padding: 30px;
+    margin-left: .5in;
+    margin-right: .5in;
+}
+li {
+    float: left;
+}
+nav {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+ul {
+    list-style-type: none;
+    display: block;
+}
