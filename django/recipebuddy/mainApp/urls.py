@@ -9,4 +9,5 @@ urlpatterns =  [
     path('account-hub/', views.account_hub_view, name='account-hub'),
     path('login/', views.login_view, name='login'),
     path('search/', views.search_view, name='search'),
+    path('recipe/<uuid:id>', views.recipe_view, name=''),
 ]

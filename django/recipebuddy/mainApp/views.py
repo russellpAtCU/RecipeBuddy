@@ -17,3 +17,6 @@ def login_view(request):
 
 def search_view(request):
     return render(request, "searchResults.html", {})
+
+def recipe_view(request):
+    return render(request, "recipePage.html", {})
