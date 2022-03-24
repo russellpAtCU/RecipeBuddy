@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Login</title>
-        <style>
-            section {padding: 2.5in;}
-        </style>
-    </head>
+<head>
+    <title>Recipe Buddy</title>
+    <link rel = "stylesheet" href = "mystyle.css">
+</head>
 
-    
-    <!-- Body -->
 
-    <body>
+<!-- Body -->
 
-        <header>
-            <a href="/app">Home</a>
-            <h1 style="text-align: center;" style="font-size: 300%;" >Login</h1>
-        </header>
-        <section style="text-align: center;">
-            <b style="font-size: x-large;" style="text-align: center;">Username: </b><input id="Username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
-            <br>
-            <br>
-            <b style="font-size: x-large;">Password: </b><input id="Password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
-            <br>
-            <br>
-            <a href="/app/account-hub"><button style="font-size: x-large;">Login</button></a>
-        </section>
-    </body>
+<body>
+
+<ul style = "background-color : #333; list-style-type: none; overflow: hidden;">
+    <li><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
+    <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/create-account" style = "text-decoration:none;">Create Account</a></li>
+    <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="app/login" style = "text-decoration:none;">Login</a></li>
+</ul>
+
+<header>
+    <h1 style="text-align: center;" style="font-size: 300%;" >Login</h1>
+</header>
+<section style="text-align: center;">
+    <br>
+    <b style="font-size: x-large;" style="text-align: center;">Username: </b><input id="Username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+    <br>
+    <br><br>
+    <b style="font-size: x-large;">Password: </b><input id="Password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+    <br>
+    <br><br>
+    <a href="/app/account-hub"><button style="font-size: x-large;">Login</button></a>
+</section>
+</body>
 </html> 

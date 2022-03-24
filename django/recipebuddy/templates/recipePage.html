@@ -4,45 +4,54 @@
     <script src="./rbp.js"></script>
     <link rel="stylesheet" href="mystyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Recipe Page </title> 
+
+    <title>Recipe Buddy</title>
+    <!--
+    <button type="button">HOME</button>
     <div class ="right-position">
-      <a href="/app"><button type="button">HOME</button></a>
-      <a href="/app/account-hub"><button type="button">My Profile </button></a>
-      <a href="/app"><button type="button"> Logout</button></a>
+    <button type="button"  >My Profile </button>
+    <button type="button"> Logout</button>
+    -->
+
+    <ul style = "background-color : #333; list-style-type: none; overflow: hidden;">
+        <li><a href="index.html" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="index.html" style = "text-decoration:none;">Logout</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="accountHub.html" style = "text-decoration:none;">My Account</a></li>
+    </ul>
     </div>
-    
+
     <!--Need to figured out how to make it interactive -->
-    <p> Recipe Name 
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star"></span>
+    <p> Recipe Name
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
     </p>
 </head>
 <body>
-    <div class="flex-container">
+<div class="flex-container">
 
-        <div class="flex-child magenta">
-          <h1> Cooking Time: 0hr 45 min </h1>
-          Step 1: <br>
-          Step 2: <br>
-          Step 3: <br>
-          Step 4: <br>
-          Step 5: <br>
-          Step 6: <br>
-          Step 7: <br>
-          Step 8: <br>
-          Step 9: <br>
-          Step 10: <br>
-        </div>
-        
-        <div class="flex-child green">
-            <h1>Utensils</h1>
-            Utensil 1<br>
-            Utensil 2<br>
-            Utensil 3 <br>
-            <span id="dots"></span><span id="more">
+    <div class="flex-child magenta">
+        <h1> Cooking Time: 0hr 45 min </h1>
+        Step 1: <br>
+        Step 2: <br>
+        Step 3: <br>
+        Step 4: <br>
+        Step 5: <br>
+        Step 6: <br>
+        Step 7: <br>
+        Step 8: <br>
+        Step 9: <br>
+        Step 10: <br>
+    </div>
+
+    <div class="flex-child green">
+        <h1>Utensils</h1>
+        Utensil 1<br>
+        Utensil 2<br>
+        Utensil 3 <br>
+        <span id="dots"></span><span id="more">
             Utensil 4<br>
             Utensil 5<br>
             Utensil 6<br>
@@ -51,14 +60,14 @@
             Utensil 9<br>
             Utensil 10<br>
             </span>
-            <a href="#">View All</a>
-          
-            <!--This button does not work-->
-            <h1>Ingredients</h1>
-            Ingredient 1<br>
-            Ingredient 2<br>
-            Ingredient 3<br>
-            <span id="dots"></span><span id="more">
+        <button onclick="myFunction()" id="myBtn">View All</button>
+
+        <!--This button does not work-->
+        <h1>Ingredients</h1>
+        Ingredient 1<br>
+        Ingredient 2<br>
+        Ingredient 3<br>
+        <span id="dots"></span><span id="more">
             Ingredient 4<br>
             Ingredient 5<br>
             Ingredient 6<br>
@@ -67,23 +76,23 @@
             Ingredient 9<br>
             Ingredient 10<br>
             </span>
-            <a href="#">View All</a>
-    
+        <button onclick="myFunction()" id="myBtn">View All</button>
 
-        </div>
-        
-      </div>
-      <div class="float-container">
 
-        <div class="float-child green">
-            <label for="Write a Comment">Write a comment:</label><br>
-            <input type="text" id="Write a Comment" name="Write a Comment"  size = 70%><br>
-            <button type="button"> Send</button>
-        </div>
-        
-      </div>
+    </div>
 
-      
+</div>
+<div class="float-container">
+
+    <div class="float-child green">
+        <label for="Write a Comment">Write a comment:</label><br>
+        <input type="text" id="Write a Comment" name="Write a Comment"  size = 70%><br>
+        <button type="button"> Send</button>
+    </div>
+
+</div>
+
+
 </body>
 
 
