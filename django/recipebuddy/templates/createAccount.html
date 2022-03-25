@@ -13,21 +13,25 @@
 
         <header>
             <a href="\app">Home</a>
-            <h1 style="text-align: center;" style="font-size: 300%;">Username</h1>
+            <h1 style="text-align: center;" style="font-size: 300%;">Create account</h1>
         </header>
-        <div class="split left"> 
-            <b style="font-size: x-large;">Username: </b><input id="Username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+        {% for message in messages %}
+        <h5 style="color: red;">{{message}}</h5>
+        {% endfor %}
+        <form method="POST" class="split left"> 
+            {% csrf_token %}
+            <b style="font-size: x-large;">Username: </b><input name="username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
             <br>
             <br>
-            <b style="font-size: x-large;">Password: </b><input id="Password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+            <b style="font-size: x-large;">Password: </b><input type="password" name="password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
             <br>
             <br>
-            <b style="font-size: x-large;"> Confirm Password: </b><input id="Password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+            <b style="font-size: x-large;"> Confirm Password: </b><input type="password" name="confirm_pass" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
             <br>
             <br>
             <button style="font-size: x-large;">Create Account</button>
-        </div>
-        <div class="split right"> 
+        </form>
+        <div class="split right">
             <b style="font-size: x-large;">Utensil: </b><input id="Password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
             <br>
             <br>

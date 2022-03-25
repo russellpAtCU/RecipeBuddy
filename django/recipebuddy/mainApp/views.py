@@ -1,12 +1,31 @@
 from urllib import request
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User, auth
+from django.contrib import messages
 
 # Create your views here.
+
 def home_view(request):
+    users = User.objects.all
     return render(request, "index.html", {})
 
 def create_account_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        confirm_pass = request.POST['confirm_pass']
+        if password == confirm_pass:
+            if User.objects.filter(username=username).exists():
+                messages.info(request, 'Username not available')
+                return redirect('/app/create-account')
+            else:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                return redirect('/app')
+        else:
+            messages.info(request, "Passwords do not match")
+            return redirect('/app/create-account')
     return render(request, "createAccount.html", {})
 
 def account_hub_view(request):
@@ -18,5 +37,8 @@ def login_view(request):
 def search_view(request):
     return render(request, "searchResults.html", {})
 
-def recipe_view(request, id):
+def recipe_view(request):
     return render(request, "recipePage.html", {})
+
+def create_recipe_view(request, id):
+    return render(request, 'recipeCreation.html',)

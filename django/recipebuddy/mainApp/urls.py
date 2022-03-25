@@ -1,4 +1,3 @@
-import re
 from unicodedata import name
 from django.urls import path
 
@@ -11,4 +10,5 @@ urlpatterns =  [
     path('login/', views.login_view, name='login'),
     path('search/', views.search_view, name='search'),
     path('recipe/<uuid:id>', views.recipe_view, name='recipe'),
+    path('create-recipe/', views.create_recipe_view, name='create-recipe'),
 ]
