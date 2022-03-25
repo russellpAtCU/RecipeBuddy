@@ -1,33 +1,42 @@
-from pickletools import read_stringnl_noescape
 from sqlite3 import Date
 import uuid
-from datetime import datetime
 from django.db import models
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=20)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #username = models.CharField(max_length=30)
+    #password = models.CharField(max_length=20)
     ingredients = list[str]
     utensils = list[str]
     loggedIn = bool
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
     
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
     def logout():
-        User.loggedIn = False
+        Profile.loggedIn = False
    
 
 class Recipe(models.Model):
     class Rating():
-        user = User
+        user = Profile
         rating: int
     class Comment():
-        user: User
+        user: Profile
         content: str
         date: Date
     utensils = list[str]
-    author = User
+    author = Profile
     instructions = list[str]
     ratings = list[Rating]
     comments = list[Comment]
