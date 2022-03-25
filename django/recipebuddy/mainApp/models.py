@@ -7,36 +7,35 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #username = models.CharField(max_length=30)
-    #password = models.CharField(max_length=20)
+class User(models.Model):
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=30, default='')
+    password = models.CharField(max_length=20, default='')
     ingredients = list[str]
     utensils = list[str]
     loggedIn = bool
 
     @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
+    def create_user_profile(sender, instance, **kwargs):
+        User.objects.create(user=instance)
     
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     def logout():
-        Profile.loggedIn = False
+        User.loggedIn = False
    
 
 class Recipe(models.Model):
     class Rating():
-        user = Profile
+        user = User
         rating: int
     class Comment():
-        user: Profile
+        user: User
         content: str
         date: Date
     utensils = list[str]
-    author = Profile
+    author = User
     instructions = list[str]
     ratings = list[Rating]
     comments = list[Comment]
