@@ -1,64 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="./rbp.js"></script>
-  <link rel="stylesheet" href="mystyle.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-    <title>Recipe Creation Page </title> 
+    <script src="./rbp.js"></script>
+    <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Recipe Buddy</title>
+    <!--
     <button type="button">HOME</button>
       <button type="button"  >My Profile </button>
       <button type="button"> Logout</button>
+    -->
+    <ul style = "background-color : #333; list-style-type: none; overflow: hidden;">
+        <li><a href="index.html" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="index.html" style = "text-decoration:none;">Logout</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="accountHub.html" style = "text-decoration:none;">My Account</a></li>
+    </ul>
     <style>
         div {
-        background-color: lightgrey;
+        background-color: rgb(153, 152, 152);
         width: 50%;
         height: 70%;
-        border: 15px solid darkgray;
+        border: 15px solid rgb(71, 70, 70);
         padding: 50px;
         margin: 10px;
         }
             </style>
-    
+
 </head>
 <body>
 <form>
     <div class="split left">
         <div class="centered">
-            
-                <label for="Title">Title:</label><br>
-                <input type="text" id="Title" name="Title" ><br>
-                <label for="Step1">Step 1:</label><br>
-                <input type="text" id="Step1" name="Step1"><br>
-                <label for="Step2">Step 2:</label><br>
-                <input type="text" id="Step2" name="Step2" size =13> 
-                <label for="T">T:</label>
-                <input type="text" id="T" name="T"size = "1"><br>
 
-                <button type="button">Add Step</button>
-                <button type="button"> Add Timer Step</button>
-                
-                </div>
+            <label for="Title">Title:</label><br>
+            <input type="text" id="Title" name="Title" ><br>
+            <label for="Step1">Step 1:</label><br>
+            <input type="text" id="Step1" name="Step1"><br>
+            <label for="Step2">Step 2:</label><br>
+            <input type="text" id="Step2" name="Step2" size =13>
+            <label for="T">T:</label>
+            <input type="text" id="T" name="T"size = "1"><br>
+
+            <button type="button">Add Step</button>
+            <button type="button"> Add Timer Step</button>
+
         </div>
-      </div>
-      
-      <div class="split right">
+    </div>
+    </div>
+
+    <div class="split right">
         <div class="centered">
-            
-                <label for="List Ingredients">List Ingredients:</label><br>
-                <input type="text" id="List Ingredients" name="List Ingredients" ><br>
 
-                <label for="List Utensils">List Utensils:</label><br>
-                <input type="text" id="List Utensils" name="List Utensils" ><br>
+            <label for="List Ingredients">List Ingredients:</label><br>
+            <input type="text" id="List Ingredients" name="List Ingredients" ><br>
 
-                <button type="button">Create</button>
-                
+            <label for="List Utensils">List Utensils:</label><br>
+            <input type="text" id="List Utensils" name="List Utensils" ><br>
 
-                
-                </div>
+            <button type="button">Create</button>
+
+
+
         </div>
-      </div>
-      
+    </div>
+    </div>
+
 </form>
 
 

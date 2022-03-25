@@ -1,4 +1,26 @@
 
+    .ul {
+		margin: 0;
+		padding: 0;
+		list-style-position: inside;
+	}
+
+	.li{
+		text-align: center;
+		font-size: 150%;
+	}
+
+	.li a {
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 14px 16px;
+	}
+
+	.li a:hover {
+		background-color: #111;
+	}
+
 .split {
     height: 70%;
     width: 30%;
