@@ -14,6 +14,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.get_username()
+    
+    def create_profile(self, ingredients=None, utensils=None):
+        
+        return user
         
 
 class Recipe(models.Model):
