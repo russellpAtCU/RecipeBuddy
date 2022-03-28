@@ -1,3 +1,4 @@
+import profile
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -17,7 +18,6 @@ def create_account_view(request):
         confirm_pass = request.POST['confirm_pass']
         ingredients = request.POST['ingredients']
         utensils = request.POST['utensils']
-
         if password == confirm_pass:
             if User.objects.filter(username=username).exists():
                 messages.info(request, 'Username not available')
@@ -25,6 +25,8 @@ def create_account_view(request):
             else:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
+                prof = Profile(user=user, ingredients=ingredients, utensils=utensils)
+                prof.save()
                 return redirect('/app')
         else:
             messages.info(request, "Passwords do not match")
