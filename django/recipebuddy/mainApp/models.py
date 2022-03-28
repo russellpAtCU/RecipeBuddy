@@ -1,32 +1,21 @@
 from sqlite3 import Date
-import this
 import uuid
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
-from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class CustomUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default='')
-    username = models.CharField(max_length=30, default='', unique=True)
-    password = models.CharField(max_length=20, default='')
-
-    ingredients = list[str]
-    utensils = list[str]
-    loggedIn = bool
-    
-    def logout():
-        CustomUser.loggedIn = False
-   
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    ingredients = models.TextField("Ingredients", default='')
+    utensils = models.TextField("Utensils", default='')
 
 class Recipe(models.Model):
     class Rating():
-        user = User
+        user = models.ForeignKey(Profile, on_delete=models.CASCADE)
         rating: int
     class Comment():
-        user: User
+        user: models.ForeignKey(Profile, on_delete=models.CASCADE)
         content: str
         date: Date
     utensils = list[str]

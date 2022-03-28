@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Recipe
+from .models import Recipe, Profile
 
 # Create your views here.
 
@@ -15,12 +15,15 @@ def create_account_view(request):
         username = request.POST['username']
         password = request.POST['password']
         confirm_pass = request.POST['confirm_pass']
+        ingredients = request.POST['ingredients']
+        utensils = request.POST['utensils']
+
         if password == confirm_pass:
             if User.objects.filter(username=username).exists():
                 messages.info(request, 'Username not available')
                 return redirect('/app/create-account')
             else:
-                user = User.objects.create_user(username=username, password=password)
+                user = User.objects.create(username=username, password=password)
                 user.save()
                 return redirect('/app')
         else:
