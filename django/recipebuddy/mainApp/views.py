@@ -8,7 +8,6 @@ from .models import Recipe
 # Create your views here.
 
 def home_view(request):
-    users = User.objects.all
     return render(request, "index.html", {})
 
 def create_account_view(request):

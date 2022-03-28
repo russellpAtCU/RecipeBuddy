@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import User, Recipe
+from .models import CustomUser, Recipe
 
 # Register your models here.
 admin.site.register(Recipe)
-#admin.site.register(Profile)
+#admin.site.register(CustomUser)

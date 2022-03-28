@@ -1,29 +1,24 @@
 from sqlite3 import Date
+import this
 import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 # Create your models here.
 
-class User(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=30, default='')
+class CustomUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default='')
+    username = models.CharField(max_length=30, default='', unique=True)
     password = models.CharField(max_length=20, default='')
+
     ingredients = list[str]
     utensils = list[str]
     loggedIn = bool
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, **kwargs):
-        User.objects.create(user=instance)
     
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
     def logout():
-        User.loggedIn = False
+        CustomUser.loggedIn = False
    
 
 class Recipe(models.Model):
