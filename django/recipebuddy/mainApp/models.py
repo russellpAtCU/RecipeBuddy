@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# - Create a whole NewUser class with all fields
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     ingredients = models.TextField("Ingredients", default='')
