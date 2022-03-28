@@ -8,9 +8,13 @@ from django.contrib.auth.models import User
 # - Create a whole NewUser class with all fields
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, primary_key=True)
     ingredients = models.TextField("Ingredients", default='')
     utensils = models.TextField("Utensils", default='')
+
+    def __str__(self):
+        return self.user.get_username()
+        
 
 class Recipe(models.Model):
     class Rating():
@@ -21,7 +25,7 @@ class Recipe(models.Model):
         content: str
         date: Date
     utensils = list[str]
-    author = User
+    author = Profile
     instructions = list[str]
     ratings = list[Rating]
     comments = list[Comment]

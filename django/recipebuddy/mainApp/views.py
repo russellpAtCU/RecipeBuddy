@@ -19,11 +19,11 @@ def create_account_view(request):
         utensils = request.POST['utensils']
 
         if password == confirm_pass:
-            if User.objects.filter(username=username).exists():
+            if NewUser.objects.filter(username=username).exists():
                 messages.info(request, 'Username not available')
                 return redirect('/app/create-account')
             else:
-                user = User.objects.create(username=username, password=password)
+                user = NewUser.objects.create_user(username=username, password=password)
                 user.save()
                 return redirect('/app')
         else:
