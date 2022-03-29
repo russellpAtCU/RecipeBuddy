@@ -29,6 +29,7 @@ def create_account_view(request):
                 user.save()
                 prof = Profile(user=user, ingredients=ingredients, utensils=utensils)
                 prof.save()
+                login(request, user)
                 return redirect('/app')
         else:
             messages.info(request, "Passwords do not match")
@@ -36,7 +37,7 @@ def create_account_view(request):
     return render(request, "createAccount.html", {})
 
 def account_hub_view(request):
-    return render(request, "accountHub.html", context)
+    return render(request, "accountHub.html", {})
 
 def logout_view(request):
     logout(request)
