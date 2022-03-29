@@ -18,16 +18,20 @@
 
 <header>
     <h1 style="text-align: center;" style="font-size: 300%;" >Login</h1>
+    {% for message in messages %}
+    <h5 style="color: red">{{message}}</h5>
+    {% endfor %}
 </header>
-<section style="text-align: center;">
+<form style="text-align: center;" method="POST">
+    {% csrf_token %}
     <br>
-    <b style="font-size: x-large;" style="text-align: center;">Username: </b><input id="Username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
-    <br>
-    <br><br>
-    <b style="font-size: x-large;">Password: </b><input id="Password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+    <b style="font-size: x-large;" style="text-align: center;">Username: </b><input name="username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
     <br>
     <br><br>
-    <a href="/app/account-hub"><button style="font-size: x-large;">Login</button></a>
-</section>
+    <b style="font-size: x-large;">Password: </b><input name="password" type="password" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+    <br>
+    <br><br>
+    <button style="font-size: x-large;">Login</button>
+</form>
 </body>
 </html> 

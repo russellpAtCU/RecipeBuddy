@@ -1,8 +1,10 @@
+from multiprocessing import context
 import profile
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import Recipe, Profile
 
@@ -34,9 +36,22 @@ def create_account_view(request):
     return render(request, "createAccount.html", {})
 
 def account_hub_view(request):
-    return render(request, "accountHub.html", {})
+    return render(request, "accountHub.html", context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('/app')
 
 def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/app/account-hub')
+        else:
+            messages.info(request, 'invalid credentials or user does not exist')
     return render(request, "login.html", {})
 
 def search_view(request):
@@ -44,7 +59,7 @@ def search_view(request):
 
 def recipe_view(request):
     id = Recipe.id
-    return render(request, "recipePage.html", {'id': id})
+    return render(request, "recipePage.html", {'id' : id})
 
-def create_recipe_view(request, id):
-    return render(request, 'recipeCreation.html',)
+def create_recipe_view(request):
+    return render(request, 'recipeCreation.html', {})

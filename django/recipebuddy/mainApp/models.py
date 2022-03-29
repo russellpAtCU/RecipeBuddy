@@ -1,20 +1,38 @@
+from email.policy import default
 from sqlite3 import Date
+from urllib import request
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
 
-# - Create a whole NewUser class with all fields
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, primary_key=True)
     ingredients = models.TextField("Ingredients", default='')
     utensils = models.TextField("Utensils", default='')
+    
+    # ingredients_list = list[str]
+    # utensils_list = list[str]
+    # def make_lists(self):
+    #     str = self.value_to_string(self.ingredients)
+    #     self.ingredients_list = str.split(',')
+    #     str = self.value_to_string(self.utensils)
+    #     self.utensils_list = str.split(',')
+
+    def get_user(self):
+        return self.user
+
+    def get_utensils(self):
+        return self.utensils_list
+
+    def get_ingredients(self):
+        return self.ingredients_list
 
     def __str__(self):
         return self.user.get_username()
-        
+    
+    
 
 class Recipe(models.Model):
     class Rating():

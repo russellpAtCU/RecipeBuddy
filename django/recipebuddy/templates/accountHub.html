@@ -11,12 +11,12 @@
 
 		<ul style = "background-color : #333; list-style-type: none; overflow: hidden;">
 			<li><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
-			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app" style = "text-decoration:none;">Logout</a></li>
+			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/logout" style = "text-decoration:none;">Logout</a></li>
 			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/account-hub" style = "text-decoration:none;">My Account</a></li>
 		</ul>
         
-        <section style = "padding : 0.1in;">
-            <center><b style="font-size: 300%;">Username</b></center>
+        <section style = "padding : 0.1in;" method="GET">
+            <center><b style="font-size: 300%;">{{user.get_username}}</b></center>
         </section>
 		
 		<center><table style = "width:75%; border-spacing: 30px;" cellpadding = "10">
@@ -48,10 +48,10 @@
 					<li style = "display:inline; font-size:100%;"><br>Share</li>
 					<li style = "display:inline; float:right; font-size:100%;">Edit</li>
 				</ul></a></td>
-				<td style = "border: 1px solid black; background-color: #e6e6e6; width:50%;"><p style = "text-align:center; font-size:200%;">Utensils</p><ul>
-					<li>Utensil 1</li>
-					<li>Utensil 2</li>
-					<li>Utensil 3</li>
+				<td method="GET" style = "border: 1px solid black; background-color: #e6e6e6; width:50%;"><p style = "text-align:center; font-size:200%;">Utensils</p><ul>
+					{% for str in utensils %}
+					<li>{{str}}</li>
+					{% endfor %}
 				</ul><p style = "text-decoration:underline; text-align:center;">View all&gt;&gt;</p></td>
 			</tr>
 			<tr style="height:300px; vertical-align:top;">
