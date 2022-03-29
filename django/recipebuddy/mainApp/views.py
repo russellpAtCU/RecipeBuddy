@@ -15,11 +15,17 @@ def home_view(request):
 
 def create_account_view(request):
     if request.method == 'POST':
+
         username = request.POST['username']
         password = request.POST['password']
         confirm_pass = request.POST['confirm_pass']
         ingredients = request.POST['ingredients']
         utensils = request.POST['utensils']
+
+        # Create function to parse utensils/ingredients
+        # Fix button functionality
+        # Add utensil/ingredient button should clear text field and add item to the respective list
+        
         if password == confirm_pass:
             if User.objects.filter(username=username).exists():
                 messages.info(request, 'Username not available')

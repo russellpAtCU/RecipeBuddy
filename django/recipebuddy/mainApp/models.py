@@ -12,22 +12,17 @@ class Profile(models.Model):
     ingredients = models.TextField("Ingredients", default='')
     utensils = models.TextField("Utensils", default='')
     
-    # ingredients_list = list[str]
-    # utensils_list = list[str]
-    # def make_lists(self):
-    #     str = self.value_to_string(self.ingredients)
-    #     self.ingredients_list = str.split(',')
-    #     str = self.value_to_string(self.utensils)
-    #     self.utensils_list = str.split(',')
+    #ingredients = models.JSONField(default=list, verbose_name="Ingredients")
+    #utensils = models.JSONField(default=list, verbose_name="Utensils")
 
     def get_user(self):
         return self.user
 
     def get_utensils(self):
-        return self.utensils_list
+        return self.utensils
 
     def get_ingredients(self):
-        return self.ingredients_list
+        return self.ingredients
 
     def __str__(self):
         return self.user.get_username()

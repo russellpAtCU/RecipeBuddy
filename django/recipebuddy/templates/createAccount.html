@@ -18,7 +18,7 @@
         <h5 style="color: red;">{{message}}</h5>
         {% endfor %}
         <form method="POST" class="split left"> 
-
+            
             {% csrf_token %} 
 
             <b style="font-size: x-large;">Username: </b><input name="username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">

@@ -23,7 +23,9 @@
     {% endfor %}
 </header>
 <form style="text-align: center;" method="POST">
+
     {% csrf_token %}
+    
     <br>
     <b style="font-size: x-large;" style="text-align: center;">Username: </b><input name="username" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
     <br>
