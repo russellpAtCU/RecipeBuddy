@@ -7454,3 +7454,7 @@ django/testApp/Scripts/wheel-3.10.exe
 django/testApp/Scripts/wheel.exe
 django/testApp/Scripts/wheel3.10.exe
 django/testApp/Scripts/wheel3.exe
+django/recipebuddy/mainApp/__pycache__/models.cpython-39.pyc
+django/recipebuddy/mainApp/__pycache__/urls.cpython-39.pyc
+django/recipebuddy/mainApp/__pycache__/views.cpython-39.pyc
+django/recipebuddy/mainApp/migrations/__pycache__/0004_profile_ingredients_list.cpython-39.pyc
