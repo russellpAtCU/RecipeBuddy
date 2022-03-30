@@ -15,7 +15,6 @@ def home_view(request):
 
 def create_account_view(request):
     if request.method == 'POST':
-
         username = request.POST['username']
         password = request.POST['password']
         confirm_pass = request.POST['confirm_pass']
@@ -25,21 +24,23 @@ def create_account_view(request):
         # Create function to parse utensils/ingredients
         # Fix button functionality
         # Add utensil/ingredient button should clear text field and add item to the respective list
-        
-        if password == confirm_pass:
-            if User.objects.filter(username=username).exists():
-                messages.info(request, 'Username not available')
-                return redirect('/app/create-account')
+        if username is not '' or password is not '':
+            if password == confirm_pass:
+                if User.objects.filter(username=username).exists():
+                    messages.info(request, 'Username not available')
+                    return redirect('/app/create-account')
+                else:
+                    user = User.objects.create_user(username=username, password=password)
+                    user.save()
+                    prof = Profile(user=user, ingredients=ingredients, utensils=utensils)
+                    prof.save()
+                    login(request, user)
+                    return redirect('/app')
             else:
-                user = User.objects.create_user(username=username, password=password)
-                user.save()
-                prof = Profile(user=user, ingredients=ingredients, utensils=utensils)
-                prof.save()
-                login(request, user)
-                return redirect('/app')
+                messages.info(request, "Passwords do not match")
+                return redirect('/app/create-account')
         else:
-            messages.info(request, "Passwords do not match")
-            return redirect('/app/create-account')
+            messages.info(request, "Username and password are required")
     return render(request, "createAccount.html", {})
 
 def account_hub_view(request):
