@@ -1,4 +1,3 @@
-
 from multiprocessing import context
 from urllib import request
 from django.http import HttpResponse
@@ -48,11 +47,10 @@ def create_account_view(request):
     return render(request, "createAccount.html", {})
 
 def account_hub_view(request):
-    ingredients = Profile.get_ingredients
-    utensils = Profile.get_utensils
-    request.GET[utensils]
-    request.GET[ingredients]
-    return render(request, "accountHub.html", {})
+    profile = Profile.objects.get(user=request.user)
+    ingredients = profile.get_ingredients
+    utensils = profile.get_utensils
+    return render(request, "accountHub.html", {'profile' : profile, 'utensils' : utensils, 'ingredients' : ingredients})
 
 def logout_view(request):
     logout(request)
