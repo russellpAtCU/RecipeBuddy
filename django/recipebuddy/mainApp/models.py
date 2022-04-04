@@ -9,20 +9,20 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, primary_key=True)
-    ingredients = models.TextField("Ingredients", default='')
-    utensils = models.TextField("Utensils", default='')
+    #ingredients = models.TextField("Ingredients", default='')
+    #utensils = models.TextField("Utensils", default='')
     
-    #ingredients = models.JSONField(default=list, verbose_name="Ingredients")
-    #utensils = models.JSONField(default=list, verbose_name="Utensils")
+    ingredients = models.JSONField(default=list, verbose_name="Ingredients")
+    utensils = models.JSONField(default=list, verbose_name="Utensils")
 
-    def get_user(self):
-        return self.user
+    def get_ingredients(self):
+        return self.ingredients
 
     def get_utensils(self):
         return self.utensils
 
-    def get_ingredients(self):
-        return self.ingredients
+    def get_user(self):
+        return self.user
 
     def __str__(self):
         return self.user.get_username()

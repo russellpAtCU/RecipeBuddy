@@ -15,7 +15,7 @@
 			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/account-hub" style = "text-decoration:none;">My Account</a></li>
 		</ul>
         
-        <section style = "padding : 0.1in;" method="GET">
+        <section style = "padding : 0.1in;">
             <center><b style="font-size: 300%;">{{user.get_username}}</b></center>
         </section>
 		
@@ -37,19 +37,23 @@
 					<li style = "display:inline; float:right; font-size:100%;">Edit</li>
 				</ul></a>
 				</td>
-				<td style = "border: 1px solid black; background-color: #e6e6e6;"><a href = "#" style ="color:black; text-decoration:none;"><p style = "text-align:center; font-size:200%;">Recipe 2</p><ul>
+				<td style = "border: 1px solid black; background-color: #e6e6e6;"><a href = "#" style ="color:black; text-decoration:none;"><p style = "text-align:center; font-size:200%;">Recipe 2</p>
+				<ul>
 					<li>Time to cook</li>
 					<li>Ingredient 1</li>
 					<li>Ingredient 2</li>
 					<li>Ingredient 3</li>
-				</ul><ul style = "list-style-type:none;">
+				</ul>
+				<ul style = "list-style-type:none;">
 					<li style = "display:inline; font-size:100%;"><br>Rating</li>
 					<li style = "display:inline; float:right; font-size:100%;">Comments</li>
 					<li style = "display:inline; font-size:100%;"><br>Share</li>
 					<li style = "display:inline; float:right; font-size:100%;">Edit</li>
 				</ul></a></td>
-				<td method="GET" style = "border: 1px solid black; background-color: #e6e6e6; width:50%;"><p style = "text-align:center; font-size:200%;">Utensils</p><ul>
-					{% for utensil in utensils %}
+
+				<td method="GET" style = "border: 1px solid black; background-color: #e6e6e6; width:50%;"><p style = "text-align:center; font-size:200%;">Utensils</p>
+				<ul>
+					{% for utensil in Profile.get_utensils %}
 					<li>{{utensil}}</li>
 					{% endfor %}
 				</ul><p style = "text-decoration:underline; text-align:center;">View all&gt;&gt;</p></td>

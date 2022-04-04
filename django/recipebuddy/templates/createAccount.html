@@ -28,22 +28,36 @@
             <br>
             <br>
             <b style="font-size: x-large;"> Confirm Password: </b><input type="password" name="confirm_pass" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
-            <br>
-            <br>
-            <b style="font-size: x-large; text-align: center;">Utensil: </b><input name="utensils" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
-            <br>
-            <br>
-            <button style="font-size: x-large; text-align: center;" type="button" >Add Utensil</button><br>
             
             <br>
             <br>
-            <b style="font-size: x-large; text-align: center;">Ingredients: </b><input id="ingredients" name="ingredients" aria-live="polite" placeholder="" style="width: 3in; height: 0.35in;">
+
+            <b style="font-size: x-large; text-align: center;">Utensil: </b><input id="utensils" name="utensils" aria-live="polite" placeholder="ex. spoon, whisk, steak knife" style="width: 3in; height: 0.35in;">
+            <button style="font-size: x-large; text-align: center;" type="button" onclick="addUtensil()" >Add Utensil</button>
+            
+            <p id="utensils_list" name="utensils_list"></p>
+            
             <br>
-            <br>
+            
+            <b style="font-size: x-large; text-align: center;">Ingredients: </b><input id="ingredients" name="ingredients" aria-live="polite" placeholder="ex. eggs, bread, sausage" style="width: 3in; height: 0.35in;">
             <button onclick="addIngredient()" id="add_ingredient" style="font-size: x-large; text-align: center;" type="button">Add Ingredients</button>
-            <p id="ingredients_list"></p>
+            <p id="ingredients_list" name="ingredients_list"></p>
+
+            <br>
+
             <button id='create_account' style="font-size: x-large;" type="submit" >Create Account</button>
             <script>
+
+                function addUtensil() {
+                    utn = document.getElementById("utensils")
+                    list = document.getElementById("utensils_list")
+                    if (list.innerHTML != '') {
+                        list.innerHTML = list.textContent.concat(', ', utn.value)
+                    } else {
+                        list.innerHTML = list.textContent.concat(utn.value)
+                    }
+                }
+
                 function addIngredient() {
                     ing = document.getElementById("ingredients")
                     list = document.getElementById("ingredients_list")

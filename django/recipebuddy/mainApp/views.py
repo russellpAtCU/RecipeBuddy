@@ -1,38 +1,42 @@
+
 from multiprocessing import context
-import profile
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.views.generic.base import RedirectView
 from .models import Recipe, Profile
 
-# Create your views here.
+# Create views here
+# - Should migrate to view classes
 
 def home_view(request):
     return render(request, "index.html", {})
 
 def create_account_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        confirm_pass = request.POST['confirm_pass']
-        ingredients = request.POST['ingredients']
-        utensils = request.POST['utensils']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        confirm_pass = request.POST.get('confirm_pass')
+        ingredients = request.POST.get('ingredients')
+        utensils = request.POST.get('utensils')
 
         # Create function to parse utensils/ingredients
         # Fix button functionality
         # Add utensil/ingredient button should clear text field and add item to the respective list
-        if username is not '' or password is not '':
+        if username != '' or password != '':
             if password == confirm_pass:
                 if User.objects.filter(username=username).exists():
                     messages.info(request, 'Username not available')
                     return redirect('/app/create-account')
                 else:
+                    ingredients_list = ingredients.split(',')
+                    utensils_list = utensils.split(',')
                     user = User.objects.create_user(username=username, password=password)
                     user.save()
-                    prof = Profile(user=user, ingredients=ingredients, utensils=utensils)
+                    prof = Profile(user=user, ingredients=ingredients_list, utensils=utensils_list)
                     prof.save()
                     login(request, user)
                     return redirect('/app')
@@ -44,6 +48,10 @@ def create_account_view(request):
     return render(request, "createAccount.html", {})
 
 def account_hub_view(request):
+    ingredients = Profile.get_ingredients
+    utensils = Profile.get_utensils
+    request.GET[utensils]
+    request.GET[ingredients]
     return render(request, "accountHub.html", {})
 
 def logout_view(request):
