@@ -19,8 +19,8 @@ def create_account_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         confirm_pass = request.POST.get('confirm_pass')
-        ingredients = request.POST.get('ingredients')
-        utensils = request.POST.get('utensils')
+        ingredients = request.POST.get('ingredients_list')
+        utensils = request.POST.get('utensils_list')
 
         # Create function to parse utensils/ingredients
         # Fix button functionality
@@ -31,8 +31,14 @@ def create_account_view(request):
                     messages.info(request, 'Username not available')
                     return redirect('/app/create-account')
                 else:
-                    ingredients_list = ingredients.split(',')
-                    utensils_list = utensils.split(',')
+                    if ingredients is not None:
+                        ingredients_list = ingredients.split(',')
+                    else:
+                        ingredients_list = ''
+                    if utensils is not None:
+                        utensils_list = utensils.split(',')
+                    else:
+                        utensils_list = ''
                     user = User.objects.create_user(username=username, password=password)
                     user.save()
                     prof = Profile(user=user, ingredients=ingredients_list, utensils=utensils_list)

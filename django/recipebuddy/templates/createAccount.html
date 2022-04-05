@@ -3,6 +3,36 @@
 <head>
     <title>Recipe Buddy</title>
     <link rel = "stylesheet" href = "mystyle.css">
+
+    <script>
+        // What the actual fuck is wrong with this function? It doesn't even run when the button is clicked anymore
+        function addUtensil() {
+            utn = document.getElementById("utensils")
+            list = document.getElementsByName("utensils_list")
+            utensils = document.getElementById("utn_list")
+            if (utensils.textContent != '') {
+                list.value = list.value.concat(', ', utn.value)
+                utensils.textContent = utensils.textContent.concat(', ', utn.value)
+            } else {
+                list.value = list.value.concat(utn.value)
+                utensils.textContent = utensils.textContent.concat(utn.value)
+            }
+        }
+
+        function addIngredient() {
+            ing = document.getElementById("ingredients")
+            list = document.getElementById("ingredients_list") //hidden text box
+            ingredients = document.getElementById("ingr_list")
+            if (ingredients.textContent != '') {
+                list.value = list.value.concat(', ', ing.value)
+                ingredients.textContent = ingredients.textContent.concat(', ', ing.value)
+            } else {
+                list.value = list.value.concat(ing.value)
+                ingredients.textContent = ingredients.textContent.concat(ing.value)
+            }
+        }
+    </script>
+
 </head>
 
 
@@ -32,40 +62,18 @@
 
             <b style="font-size: x-large; text-align: center;">Utensil: </b><input id="utensils" name="utensils" aria-live="polite" placeholder="ex. spoon, whisk, steak knife" style="width: 3in; height: 0.35in;">
             <button style="font-size: x-large; text-align: center;" type="button" onclick="addUtensil()" >Add Utensil</button>
-            
-            <p id="utensils_list" name="utensils_list"></p>
+            <input type="hidden" id="utensils_list" name="utensils_list"></p>
+            <p id="utn_list"></p>
             
             <br>
             
             <b style="font-size: x-large; text-align: center;">Ingredients: </b><input id="ingredients" name="ingredients" aria-live="polite" placeholder="ex. eggs, bread, sausage" style="width: 3in; height: 0.35in;">
             <button onclick="addIngredient()" id="add_ingredient" style="font-size: x-large; text-align: center;" type="button">Add Ingredients</button>
-            <p id="ingredients_list" name="ingredients_list"></p>
+            <input type="hidden" id="ingredients_list" name="ingredients_list"></input>
+            <p id="ingr_list"></p>
 
             <br>
-
             <button id='create_account' style="font-size: x-large;" type="submit" >Create Account</button>
-            <script>
-
-                function addUtensil() {
-                    utn = document.getElementById("utensils")
-                    list = document.getElementById("utensils_list")
-                    if (list.innerHTML != '') {
-                        list.innerHTML = list.textContent.concat(', ', utn.value)
-                    } else {
-                        list.innerHTML = list.textContent.concat(utn.value)
-                    }
-                }
-
-                function addIngredient() {
-                    ing = document.getElementById("ingredients")
-                    list = document.getElementById("ingredients_list")
-                    if (list.innerHTML != '') {
-                        list.innerHTML = list.textContent.concat(', ', ing.value)
-                    } else {
-                        list.innerHTML = list.textContent.concat(ing.value)
-                    }
-                }
-            </script>
         </form>
 
     </tr>
