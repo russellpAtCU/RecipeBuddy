@@ -1,34 +1,35 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Recipe Buddy</title>
-    <link rel = "stylesheet" href = "mystyle.css">
+    <link rel = "stylesheet" href = "{% static 'css/createAccount.css' %}"> <!-- load static -->
 
     <script>
-        // What the actual fuck is wrong with this function? It doesn't even run when the button is clicked anymore
-        function addUtensil() {
-            utn = document.getElementById("utensils")
-            list = document.getElementsByName("utensils_list")
-            utensils = document.getElementById("utn_list")
-            if (utensils.textContent != '') {
-                list.value = list.value.concat(', ', utn.value)
-                utensils.textContent = utensils.textContent.concat(', ', utn.value)
-            } else {
-                list.value = list.value.concat(utn.value)
-                utensils.textContent = utensils.textContent.concat(utn.value)
-            }
-        }
 
         function addIngredient() {
-            ing = document.getElementById("ingredients")
+            ing = document.getElementById("ingredients") //ingredients text box
             list = document.getElementById("ingredients_list") //hidden text box
-            ingredients = document.getElementById("ingr_list")
+            ingredients = document.getElementById("ingr_list") //ingredients p tag
             if (ingredients.textContent != '') {
                 list.value = list.value.concat(', ', ing.value)
                 ingredients.textContent = ingredients.textContent.concat(', ', ing.value)
             } else {
                 list.value = list.value.concat(ing.value)
                 ingredients.textContent = ingredients.textContent.concat(ing.value)
+            }
+        }
+        function addUtensil() {
+            utn = document.getElementById("utensils") //utensils text box
+            list = document.getElementById("utensils_list") //hidden text box
+            utensils = document.getElementById("utn_list") //utensils p tag
+            if (utensils.textContent != '') {
+                list.value = list.value.concat(', ', utn.value)
+                utensils.textContent = utensils.textContent.concat(', ', utn.value)
+            } else {
+                list.value = list.value.concat(utn.value)
+                utensils.textContent = utensils.textContent.concat(utn.value)
             }
         }
     </script>
@@ -45,7 +46,7 @@
         {% for message in messages %}
         <h5 style="color: red;">{{message}}</h5>
         {% endfor %}
-        <form method="POST" class="split left"> 
+        <form method="POST" class="left right"> 
             
             {% csrf_token %} 
 
@@ -61,18 +62,19 @@
             <br>
 
             <b style="font-size: x-large; text-align: center;">Utensil: </b><input id="utensils" name="utensils" aria-live="polite" placeholder="ex. spoon, whisk, steak knife" style="width: 3in; height: 0.35in;">
-            <button style="font-size: x-large; text-align: center;" type="button" onclick="addUtensil()" >Add Utensil</button>
-            <input type="hidden" id="utensils_list" name="utensils_list"></p>
+            <button onclick="addUtensil()" id='add_utensil' style="font-size: x-large; text-align: center;" type="button">Add Utensil</button>
+            <input type="hidden" id="utensils_list" name="utensils_list">
             <p id="utn_list"></p>
-            
+
             <br>
             
             <b style="font-size: x-large; text-align: center;">Ingredients: </b><input id="ingredients" name="ingredients" aria-live="polite" placeholder="ex. eggs, bread, sausage" style="width: 3in; height: 0.35in;">
             <button onclick="addIngredient()" id="add_ingredient" style="font-size: x-large; text-align: center;" type="button">Add Ingredients</button>
-            <input type="hidden" id="ingredients_list" name="ingredients_list"></input>
+            <input type="hidden" id="ingredients_list" name="ingredients_list">
             <p id="ingr_list"></p>
 
             <br>
+            
             <button id='create_account' style="font-size: x-large;" type="submit" >Create Account</button>
         </form>
 

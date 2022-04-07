@@ -1,10 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="./rbp.js"></script>
-    <link rel="stylesheet" href="mystyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script>
+        // Add function for add step button
+        // You should only be able to add ingredients and utensils that are in your pantry
+        // (make them option fields, maybe add text suggesttion feature)
+    </script>
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <!--
+    <link rel="" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    -->
     <title>Recipe Buddy</title>
     <!--
     <button type="button">HOME</button>
@@ -29,12 +36,12 @@
 
 </head>
 <body>
-<form>
+<form method="POST">
     <div class="split left">
         <div class="centered">
 
             <label for="Title">Title:</label><br>
-            <input type="text" id="Title" name="Title" ><br>
+            <input type="text" id="recipe_title" name="title" ><br>
             <label for="Step1">Step 1:</label><br>
             <input type="text" id="Step1" name="Step1"><br>
             <label for="Step2">Step 2:</label><br>
@@ -53,12 +60,12 @@
         <div class="centered">
 
             <label for="List Ingredients">List Ingredients:</label><br>
-            <input type="text" id="List Ingredients" name="List Ingredients" ><br>
+            <input type="text" id="List Ingredients" name="recipe_ingredients" ><br>
 
             <label for="List Utensils">List Utensils:</label><br>
-            <input type="text" id="List Utensils" name="List Utensils" ><br>
+            <input type="text" id="List Utensils" name="recipe_utensils" ><br>
 
-            <button type="button">Create</button>
+            <button type="submit">Create</button>
 
 
 

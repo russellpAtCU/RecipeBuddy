@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# Todo: Continue working on creating recipes
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, primary_key=True)
     #ingredients = models.TextField("Ingredients", default='')
@@ -14,6 +16,10 @@ class Profile(models.Model):
     
     ingredients = models.JSONField(default=list, verbose_name="Ingredients")
     utensils = models.JSONField(default=list, verbose_name="Utensils")
+    recipes = models.JSONField(default=list, verbose_name="Recipes")
+
+    def get_recipes(self):
+        return self.recipes
 
     def get_ingredients(self):
         return self.ingredients
@@ -31,19 +37,28 @@ class Profile(models.Model):
 
 class Recipe(models.Model):
     class Rating():
-        user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+        user = Profile
         rating: int
     class Comment():
-        user: models.ForeignKey(Profile, on_delete=models.CASCADE)
+        user: Profile
         content: str
         date: Date
-    utensils = list[str]
-    author = Profile
-    instructions = list[str]
-    ratings = list[Rating]
-    comments = list[Comment]
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+        def __str__(self):
+            return self.user.get_username
     recipe_name = models.CharField('Recipe name', blank=True, max_length=200)
-    recipe_ingredients = models.TextField(help_text='Enter as a list separated by commas', default="")
-    date = models.DateField('published', default=Date.today)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, default=None)
+    instructions = models.JSONField(default=tuple[str], verbose_name="Instructions")
+    ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
+    comments = models.JSONField(default=list[Comment], verbose_name="Comments")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    recipe_ingredients = models.JSONField(default=list, verbose_name="Ingredients")
+    recipe_utensils = models.JSONField(default=list, verbose_name="Utensils")
+    date = models.DateField('Created', default=Date.today)
+
+    def get_id(self):
+        return self.id
+
+    def __str__(self):
+        return self.recipe_name
 

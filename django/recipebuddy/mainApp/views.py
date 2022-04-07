@@ -56,6 +56,7 @@ def account_hub_view(request):
     profile = Profile.objects.get(user=request.user)
     ingredients = profile.get_ingredients
     utensils = profile.get_utensils
+    recipes = profile.get_recipes
     return render(request, "accountHub.html", {'profile' : profile, 'utensils' : utensils, 'ingredients' : ingredients})
 
 def logout_view(request):
@@ -78,8 +79,10 @@ def search_view(request):
     return render(request, "searchResults.html", {})
 
 def recipe_view(request):
-    id = Recipe.id
+    id = Recipe.objects.get(id=request.id)
     return render(request, "recipePage.html", {'id' : id})
 
 def create_recipe_view(request):
+    if request.method == 'POST':
+        recipe_name = request.POST.get['title']
     return render(request, 'recipeCreation.html', {})
