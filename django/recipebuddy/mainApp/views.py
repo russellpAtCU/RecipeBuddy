@@ -14,6 +14,7 @@ from .models import Recipe, Profile
 def home_view(request):
     return render(request, "index.html", {})
 
+
 def create_account_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -25,6 +26,7 @@ def create_account_view(request):
         # Create function to parse utensils/ingredients
         # Fix button functionality
         # Add utensil/ingredient button should clear text field and add item to the respective list
+
         if username != '' or password != '':
             if password == confirm_pass:
                 if User.objects.filter(username=username).exists():
@@ -52,6 +54,7 @@ def create_account_view(request):
             messages.info(request, "Username and password are required")
     return render(request, "createAccount.html", {})
 
+
 def account_hub_view(request):
     profile = Profile.objects.get(user=request.user)
     ingredients = profile.get_ingredients
@@ -59,9 +62,11 @@ def account_hub_view(request):
     recipes = profile.get_recipes
     return render(request, "accountHub.html", {'profile' : profile, 'utensils' : utensils, 'ingredients' : ingredients})
 
+
 def logout_view(request):
     logout(request)
     return redirect('/app')
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -75,14 +80,28 @@ def login_view(request):
             messages.info(request, 'invalid credentials or user does not exist')
     return render(request, "login.html", {})
 
+
 def search_view(request):
     return render(request, "searchResults.html", {})
+
 
 def recipe_view(request):
     id = Recipe.objects.get(id=request.id)
     return render(request, "recipePage.html", {'id' : id})
 
+
 def create_recipe_view(request):
     if request.method == 'POST':
-        recipe_name = request.POST.get['title']
+        prof = Profile.objects.get(user=request.user)
+        steps = request.POST.get('steps')
+        recipe_name = request.POST.get('title')
+        recipe_ingr = request.POST.get('recipe_ingredients')
+        recipe_utn = request.POST.get('recipe_utensils')
+
+        recipe = Recipe(recipe_name=recipe_name, instructions=steps, author=prof.__str__, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
+        # NOT NULL constraint failed: mainApp_recipe.instructions
+        recipe.save()
+
+        redirect('/app/recipe/' + (str)(recipe.get_id()))
+
     return render(request, 'recipeCreation.html', {})

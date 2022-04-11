@@ -7,6 +7,18 @@
         // Add function for add step button
         // You should only be able to add ingredients and utensils that are in your pantry
         // (make them option fields, maybe add text suggesttion feature)
+
+        function addStep() {
+            input = document.getElementById("step")
+            if (input.value != '') {
+                nextStep = document.createElement("li")
+                nextStep.textContent = input.value
+                ol = document.getElementById("steps")
+                ol.appendChild(nextStep)
+                input.value = ''
+            }
+        }
+
     </script>
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
     <!--
@@ -18,8 +30,8 @@
       <button type="button"  >My Profile </button>
       <button type="button"> Logout</button>
     -->
-    <ul style = "background-color : #333; list-style-type: none; overflow: hidden;">
-        <li><a href="index.html" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
+    <ul style = "background-color : rgb(204, 88, 88); list-style-type: none; overflow: hidden;">
+        <li><a href="app/" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
         <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="index.html" style = "text-decoration:none;">Logout</a></li>
         <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="accountHub.html" style = "text-decoration:none;">My Account</a></li>
     </ul>
@@ -32,25 +44,27 @@
         padding: 50px;
         margin: 10px;
         }
-            </style>
+    </style>
 
 </head>
 <body>
 <form method="POST">
+    {% csrf_token %}
     <div class="split left">
         <div class="centered">
 
             <label for="Title">Title:</label><br>
             <input type="text" id="recipe_title" name="title" ><br>
-            <label for="Step1">Step 1:</label><br>
-            <input type="text" id="Step1" name="Step1"><br>
-            <label for="Step2">Step 2:</label><br>
-            <input type="text" id="Step2" name="Step2" size =13>
-            <label for="T">T:</label>
-            <input type="text" id="T" name="T"size = "1"><br>
 
-            <button type="button">Add Step</button>
-            <button type="button"> Add Timer Step</button>
+            <input type="text" id="step">
+
+            <label for="T">T:</label>
+            <input type="text" id="time" name="time"size = "1"><br>
+            <ol id="steps" name="steps" method="POST">
+                
+            </ol>
+            <button type="button" onclick="addStep()">Add Step</button>
+            <button type="button">Add Timer Step</button>
 
         </div>
     </div>

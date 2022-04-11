@@ -1,4 +1,5 @@
 from email.policy import default
+from mimetypes import init
 from sqlite3 import Date
 from urllib import request
 import uuid
@@ -7,7 +8,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-# Todo: Continue working on creating recipes
+# Working on create_recipe_view
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, primary_key=True)
@@ -38,16 +39,16 @@ class Profile(models.Model):
 class Recipe(models.Model):
     class Rating():
         user = Profile
-        rating: int
+        rating = int
     class Comment():
-        user: Profile
-        content: str
-        date: Date
+        user = Profile
+        content = str
+        date = Date
 
         def __str__(self):
             return self.user.get_username
     recipe_name = models.CharField('Recipe name', blank=True, max_length=200)
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE, default=None)
+    author = models.CharField('Author', blank=True, max_length=35)
     instructions = models.JSONField(default=tuple[str], verbose_name="Instructions")
     ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
     comments = models.JSONField(default=list[Comment], verbose_name="Comments")
@@ -61,4 +62,6 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.recipe_name
+
+    
 
