@@ -93,15 +93,16 @@ def recipe_view(request):
 def create_recipe_view(request):
     if request.method == 'POST':
         prof = Profile.objects.get(user=request.user)
+        username = prof.get_user().get_username()
         steps = request.POST.get('steps')
         recipe_name = request.POST.get('title')
         recipe_ingr = request.POST.get('recipe_ingredients')
         recipe_utn = request.POST.get('recipe_utensils')
 
-        recipe = Recipe(recipe_name=recipe_name, instructions=steps, author=prof.__str__, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
+        recipe = Recipe(recipe_name=recipe_name, instructions=steps, author=username, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
         # NOT NULL constraint failed: mainApp_recipe.instructions
         recipe.save()
 
-        redirect('/app/recipe/' + (str)(recipe.get_id()))
+        redirect("/app/recipe/" + (str)(recipe.get_id))
 
     return render(request, 'recipeCreation.html', {})

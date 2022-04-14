@@ -3,11 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     <script>
-        // Add function for add step button
-        // You should only be able to add ingredients and utensils that are in your pantry
-        // (make them option fields, maybe add text suggesttion feature)
-
         function addStep() {
             input = document.getElementById("step")
             if (input.value != '') {
@@ -21,9 +19,6 @@
 
     </script>
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
-    <!--
-    <link rel="" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    -->
     <title>Recipe Buddy</title>
     <!--
     <button type="button">HOME</button>
@@ -31,9 +26,9 @@
       <button type="button"> Logout</button>
     -->
     <ul style = "background-color : rgb(204, 88, 88); list-style-type: none; overflow: hidden;">
-        <li><a href="app/" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
-        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="index.html" style = "text-decoration:none;">Logout</a></li>
-        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="accountHub.html" style = "text-decoration:none;">My Account</a></li>
+        <li><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/logout" style = "text-decoration:none;">Logout</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/account-hub" style = "text-decoration:none;">My Account</a></li>
     </ul>
     <style>
         div {
@@ -79,7 +74,7 @@
             <label for="List Utensils">List Utensils:</label><br>
             <input type="text" id="List Utensils" name="recipe_utensils" ><br>
 
-            <button type="submit">Create</button>
+            <button id="create" type="submit">Create</button>
 
 
 

@@ -5,6 +5,7 @@ from urllib import request
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from pkg_resources import require
 
 # Create your models here.
 
@@ -47,9 +48,10 @@ class Recipe(models.Model):
 
         def __str__(self):
             return self.user.get_username
+            
     recipe_name = models.CharField('Recipe name', blank=True, max_length=200)
     author = models.CharField('Author', blank=True, max_length=35)
-    instructions = models.JSONField(default=tuple[str], verbose_name="Instructions")
+    instructions = models.JSONField(default=tuple[str], verbose_name="Instructions", blank=True)
     ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
     comments = models.JSONField(default=list[Comment], verbose_name="Comments")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
