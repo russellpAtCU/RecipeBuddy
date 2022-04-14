@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.urls import reverse
 from django.views.generic.base import RedirectView
 from .models import Recipe, Profile
 
@@ -94,7 +95,7 @@ def create_recipe_view(request):
     if request.method == 'POST':
         prof = Profile.objects.get(user=request.user)
         username = prof.get_user().get_username()
-        steps = request.POST.get('instructions')
+        steps = request.POST.get('all_steps')
         instructions = steps.split(',')
         recipe_name = request.POST.get('title')
         recipe_ingr = request.POST.get('recipe_ingredients')
@@ -103,7 +104,6 @@ def create_recipe_view(request):
         recipe = Recipe(recipe_name=recipe_name, instructions=instructions, author=username, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
         # NOT NULL constraint failed: mainApp_recipe.instructions
         recipe.save()
-
-        redirect("/app/recipe/" + (str)(recipe.get_id))
+        return redirect(reverse("recipe", kwargs={'id':(str)(recipe.id)}))
 
     return render(request, 'recipeCreation.html', {})

@@ -12,7 +12,12 @@
             if (input.value != '') {
                 nextStep = document.createElement("li")
                 nextStep.textContent = input.value
-                all_steps += input.value + ','
+                if (all_steps.value != '') {
+                    all_steps.value += ',' + input.value
+                } else {
+                    all_steps.value += input.value
+                }
+                
                 ol = document.getElementById("steps")
                 ol.appendChild(nextStep)
                 input.value = ''
@@ -76,10 +81,8 @@
             <label for="List Utensils">List Utensils:</label><br>
             <input type="text" id="List Utensils" name="recipe_utensils" ><br>
 
-            <input type="text" id="all_steps" name="all_steps">
+            <input type="hidden" id="all_steps" name="all_steps">
             <button id="create" type="submit">Create</button>
-
-
 
         </div>
     </div>

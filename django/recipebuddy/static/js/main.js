@@ -7,11 +7,6 @@ $(document).ready(function() {
             steps += steps + ',';
             console.log(steps);
         });
-        $.ajax({
-            method: "POST",
-            url: "{% url 'recipe' %}",
-            data: {'instructions' : steps.join(',')}
-        })
     })
 });
 
