@@ -86,8 +86,8 @@ def search_view(request):
     return render(request, "searchResults.html", {})
 
 
-def recipe_view(request):
-    id = Recipe.objects.get(id=request.id)
+def recipe_view(request, id):
+    #id = Recipe.objects.get(id=request.id)
     return render(request, "recipePage.html", {'id' : id})
 
 
