@@ -61,7 +61,7 @@ def account_hub_view(request):
     ingredients = profile.get_ingredients
     utensils = profile.get_utensils
     recipes = profile.get_recipes
-    return render(request, "accountHub.html", {'profile' : profile, 'utensils' : utensils, 'ingredients' : ingredients})
+    return render(request, "accountHub.html", {'profile' : profile, 'utensils' : utensils, 'ingredients' : ingredients, 'recipes':recipes})
 
 
 def logout_view(request):
@@ -104,6 +104,8 @@ def create_recipe_view(request):
         recipe = Recipe(recipe_name=recipe_name, instructions=instructions, author=username, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
         # NOT NULL constraint failed: mainApp_recipe.instructions
         recipe.save()
+        prof.add_recipe(recipe)
+        prof.save()
         return redirect(reverse("recipe", kwargs={'id':(str)(recipe.id)}))
 
     return render(request, 'recipeCreation.html', {})

@@ -20,6 +20,9 @@ class Profile(models.Model):
     utensils = models.JSONField(default=list, verbose_name="Utensils")
     recipes = models.JSONField(default=list, verbose_name="Recipes")
 
+    def add_recipe(self, recipe):
+        self.recipes[recipe] = recipe
+
     def get_recipes(self):
         return self.recipes
 
