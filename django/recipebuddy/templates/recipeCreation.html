@@ -8,9 +8,11 @@
     <script>
         function addStep() {
             input = document.getElementById("step")
+            all_steps = document.getElementById("all_steps")
             if (input.value != '') {
                 nextStep = document.createElement("li")
                 nextStep.textContent = input.value
+                all_steps += input.value + ','
                 ol = document.getElementById("steps")
                 ol.appendChild(nextStep)
                 input.value = ''
@@ -74,6 +76,7 @@
             <label for="List Utensils">List Utensils:</label><br>
             <input type="text" id="List Utensils" name="recipe_utensils" ><br>
 
+            <input type="text" id="all_steps" name="all_steps">
             <button id="create" type="submit">Create</button>
 
 

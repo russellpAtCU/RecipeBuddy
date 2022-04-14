@@ -51,7 +51,7 @@ class Recipe(models.Model):
             
     recipe_name = models.CharField('Recipe name', blank=True, max_length=200)
     author = models.CharField('Author', blank=True, max_length=35)
-    instructions = models.JSONField(default=tuple[str], verbose_name="Instructions", blank=True)
+    instructions = models.JSONField(default=tuple, verbose_name="Instructions")
     ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
     comments = models.JSONField(default=list[Comment], verbose_name="Comments")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

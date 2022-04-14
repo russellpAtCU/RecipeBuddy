@@ -1,13 +1,16 @@
 $(document).ready(function() {
-    var steps = [];
-    $("<li>").each(function() {
-        steps.push($(this).text());
-    });
+    
+    var steps = '';
+
     $("#create").click(function() {
+        $("<li>").each(function() {
+            steps += steps + ',';
+            console.log(steps);
+        });
         $.ajax({
-            url: "{% url 'recipe/<uuid:id>' %}",
-            type: "POST",
-            data: steps
+            method: "POST",
+            url: "{% url 'recipe' %}",
+            data: {'instructions' : steps.join(',')}
         })
     })
 });
