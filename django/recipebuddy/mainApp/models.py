@@ -77,6 +77,12 @@ class Recipe(models.Model):
     recipe_utensils = models.TextField(verbose_name="Utensils", blank=True, max_length=300)
     date = models.DateField('Created', default=Date.today)
 
+    def get_recipe_utensils(self):
+        return self.recipe_utensils
+
+    def get_recipe_ingredients(self):
+        return self.recipe_ingredients
+
     def get_id(self):
         return self.id
 

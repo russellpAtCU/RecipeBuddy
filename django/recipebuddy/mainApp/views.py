@@ -62,16 +62,25 @@ def create_account_view(request):
 def account_hub_view(request):
     profile = Profile.objects.get(user=request.user)
     ingredients = profile.get_ingredients
-    utensils = profile.get_utensils
+    utensils = profile.get_utensils()
     id_list = profile.get_recipe_ids().split(', ')
     recipes = []
+    recipes_ingredients = []
+    recipes_utensils = []
     if id_list != ['']:
         for id in id_list:
             id = uuid.UUID(id)
             recipe = Recipe.objects.get(id=id)
             recipes.append(recipe)
-            
-    return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes})
+            recipe_ingr = recipe.get_recipe_ingredients().split(', ')
+            recipes_ingredients.append(recipe_ingr)
+            recipe_utn = recipe.get_recipe_utensils().split(', ')
+            recipes_utensils.append(recipe_utn)
+
+    recipe_count = recipes.__len__
+
+    return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
+     'recipes_ingredients':recipes_ingredients, 'recipes_utnensils':recipes_utensils, 'count':recipe_count, 'id_list':id_list})
 
 
 def logout_view(request):
