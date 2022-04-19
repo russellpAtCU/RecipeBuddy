@@ -18,13 +18,25 @@ class Profile(models.Model):
     
     ingredients = models.JSONField(default=list, verbose_name="Ingredients")
     utensils = models.JSONField(default=list, verbose_name="Utensils")
-    recipes = models.JSONField(default=list, verbose_name="Recipes")
+    #recipes = models.JSONField(default=list, verbose_name="Recipes")
 
-    def add_recipe(self, recipe):
-        self.recipes[recipe] = recipe
+    recipe_ids = models.TextField(verbose_name="Recipes", default='', blank=True, max_length=None)
 
-    def get_recipes(self):
-        return self.recipes
+    # NEED TO REWORK MODELS. Store lists as text fields separated by ', '
+    # JSON fields don't allow the same functionality as lists
+
+    def del_recipe(self, recipe_id):
+        return 0
+
+    def add_recipe(self, recipe_id):
+        if self.recipe_ids == '':
+            self.recipe_ids += (recipe_id)
+        else:
+            self.recipe_ids += ', ' + (recipe_id)
+    
+    # Need to test
+    def get_recipe_ids(self):
+        return self.recipe_ids
 
     def get_ingredients(self):
         return self.ingredients
@@ -54,12 +66,15 @@ class Recipe(models.Model):
             
     recipe_name = models.CharField('Recipe name', blank=True, max_length=200)
     author = models.CharField('Author', blank=True, max_length=35)
-    instructions = models.JSONField(default=tuple, verbose_name="Instructions")
-    ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
-    comments = models.JSONField(default=list[Comment], verbose_name="Comments")
+    #instructions = models.JSONField(default=tuple, verbose_name="Instructions")
+    instructions = models.TextField(verbose_name="Instructions", max_length=None)
+    #ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
+    #comments = models.JSONField(default=list[Comment], verbose_name="Comments")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    recipe_ingredients = models.JSONField(default=list, verbose_name="Ingredients")
-    recipe_utensils = models.JSONField(default=list, verbose_name="Utensils")
+    #recipe_ingredients = models.JSONField(default=list, verbose_name="Ingredients")
+    recipe_ingredients = models.TextField(verbose_name="Ingredients", max_length=300, blank=True)
+    #recipe_utensils = models.JSONField(default=list, verbose_name="Utensils")
+    recipe_utensils = models.TextField(verbose_name="Utensils", blank=True, max_length=300)
     date = models.DateField('Created', default=Date.today)
 
     def get_id(self):

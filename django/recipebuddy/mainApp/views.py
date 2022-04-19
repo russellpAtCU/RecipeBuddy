@@ -1,5 +1,8 @@
 from multiprocessing import context
 from urllib import request
+from uuid import UUID, uuid4
+import uuid
+from django.forms import UUIDField
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
@@ -60,8 +63,15 @@ def account_hub_view(request):
     profile = Profile.objects.get(user=request.user)
     ingredients = profile.get_ingredients
     utensils = profile.get_utensils
-    recipes = profile.get_recipes
-    return render(request, "accountHub.html", {'profile' : profile, 'utensils' : utensils, 'ingredients' : ingredients, 'recipes':recipes})
+    id_list = profile.get_recipe_ids().split(', ')
+    recipes = []
+    if id_list != ['']:
+        for id in id_list:
+            id = uuid.UUID(id)
+            recipe = Recipe.objects.get(id=id)
+            recipes.append(recipe)
+            
+    return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes})
 
 
 def logout_view(request):
@@ -96,15 +106,15 @@ def create_recipe_view(request):
         prof = Profile.objects.get(user=request.user)
         username = prof.get_user().get_username()
         steps = request.POST.get('all_steps')
-        instructions = steps.split(',')
+        #instructions = steps.split('(,)')
         recipe_name = request.POST.get('title')
         recipe_ingr = request.POST.get('recipe_ingredients')
         recipe_utn = request.POST.get('recipe_utensils')
 
-        recipe = Recipe(recipe_name=recipe_name, instructions=instructions, author=username, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
+        recipe = Recipe(recipe_name=recipe_name, instructions=steps, author=username, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
         # NOT NULL constraint failed: mainApp_recipe.instructions
         recipe.save()
-        prof.add_recipe(recipe)
+        prof.add_recipe((str)(recipe.id))
         prof.save()
         return redirect(reverse("recipe", kwargs={'id':(str)(recipe.id)}))
 
