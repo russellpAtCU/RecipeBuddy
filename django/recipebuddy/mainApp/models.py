@@ -34,7 +34,6 @@ class Profile(models.Model):
         else:
             self.recipe_ids += ', ' + (recipe_id)
     
-    # Need to test
     def get_recipe_ids(self):
         return self.recipe_ids
 

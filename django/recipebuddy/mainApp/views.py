@@ -16,6 +16,10 @@ from .models import Recipe, Profile
 # - Should migrate to view classes
 
 def home_view(request):
+    if request.method == 'POST':
+        search = request.POST.get('search_bar')
+        search_type = request.POST.get('search_type')
+        
     return render(request, "index.html", {})
 
 
@@ -26,10 +30,6 @@ def create_account_view(request):
         confirm_pass = request.POST.get('confirm_pass')
         ingredients = request.POST.get('ingredients_list')
         utensils = request.POST.get('utensils_list')
-
-        # Create function to parse utensils/ingredients
-        # Fix button functionality
-        # Add utensil/ingredient button should clear text field and add item to the respective list
 
         if username != '' or password != '':
             if password == confirm_pass:
@@ -106,7 +106,7 @@ def search_view(request):
 
 
 def recipe_view(request, id):
-    #id = Recipe.objects.get(id=request.id)
+    id = Recipe.objects.get(id=request.id)
     return render(request, "recipePage.html", {'id' : id})
 
 
@@ -128,3 +128,7 @@ def create_recipe_view(request):
         return redirect(reverse("recipe", kwargs={'id':(str)(recipe.id)}))
 
     return render(request, 'recipeCreation.html', {})
+
+def search_view(request):
+    
+    return render(request, 'searchResults.html', {})
