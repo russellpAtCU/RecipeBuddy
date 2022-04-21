@@ -15,21 +15,23 @@ from .models import Recipe, Profile
 # Create views here
 # - Should migrate to view classes
 
+def search_recipes(search_str, type):
+    results = list[Recipe]
+    recipes = Recipe.objects.all()
+    search_words = search_str.split(' ')
+    for recipe in recipes:
+        if type == 'ingredient':
+            if any(search_words) in recipe.get_ingredients:
+                results.append(recipe)
+        if type == 'utensil':
+            if any(search_words) in recipe.get_utensils:
+                results.append(recipe)
+        if type == 'keyword':
+            if any(search_words) in recipe.__str__:
+                results.append(recipe)
+    return results
+
 def home_view(request):
-    if request.method == 'GET':
-        search = request.GET.get('search_bar')
-        search_type = request.GET.get('search_type')
-        profile = Profile.objects.get(user=request.user)
-        results = profile.search_recipes(search, search_type)
-        
-        term_list = search.split(' ')
-        link_ext = ''
-        for term in term_list:
-            if (link_ext == ''):
-                link_ext += term
-            else:
-                link_ext += '+' + term
-        redirect('/app/search-results/' + link_ext, kwargs={'results':results})
     return render(request, "index.html", {})
 
 
@@ -138,6 +140,3 @@ def create_recipe_view(request):
 
     return render(request, 'recipeCreation.html', {})
 
-def search_view(request):
-    
-    return render(request, 'searchResults.html', {})
