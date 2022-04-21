@@ -82,6 +82,9 @@ class Recipe(models.Model):
     def get_recipe_ingredients(self):
         return self.recipe_ingredients
 
+    def get_recipe_instructions(self):
+        return self.instructions
+
     def get_id(self):
         return self.id
 

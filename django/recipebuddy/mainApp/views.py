@@ -119,7 +119,11 @@ def search_view(request):
 
 def recipe_view(request, id):
     #id = Recipe.objects.get(id=request.id)
-    return render(request, "recipePage.html", {'id' : id})
+    recipe = Recipe.objects.get(id=id)
+    recipe_ingredients = recipe.get_recipe_ingredients().split(', ')
+    recipe_utensils = recipe.get_recipe_utensils().split(', ')
+    recipe_instructions = recipe.get_recipe_instructions().split("(,)")
+    return render(request, "recipePage.html", {'recipe':recipe, 'recipe_ingredients':recipe_ingredients, 'recipe_utensils':recipe_utensils, 'recipe_instructions':recipe_instructions})
 
 
 def create_recipe_view(request):
