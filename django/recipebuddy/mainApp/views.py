@@ -16,10 +16,20 @@ from .models import Recipe, Profile
 # - Should migrate to view classes
 
 def home_view(request):
-    if request.method == 'POST':
-        search = request.POST.get('search_bar')
-        search_type = request.POST.get('search_type')
+    if request.method == 'GET':
+        search = request.GET.get('search_bar')
+        search_type = request.GET.get('search_type')
+        profile = Profile.objects.get(user=request.user)
+        results = profile.search_recipes(search, search_type)
         
+        term_list = search.split(' ')
+        link_ext = ''
+        for term in term_list:
+            if (link_ext == ''):
+                link_ext += term
+            else:
+                link_ext += '+' + term
+        redirect('/app/search-results/' + link_ext, kwargs={'results':results})
     return render(request, "index.html", {})
 
 
@@ -121,7 +131,6 @@ def create_recipe_view(request):
         recipe_utn = request.POST.get('recipe_utensils')
 
         recipe = Recipe(recipe_name=recipe_name, instructions=steps, author=username, recipe_ingredients=recipe_ingr, recipe_utensils=recipe_utn)
-        # NOT NULL constraint failed: mainApp_recipe.instructions
         recipe.save()
         prof.add_recipe((str)(recipe.id))
         prof.save()

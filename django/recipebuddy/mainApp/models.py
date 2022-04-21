@@ -25,6 +25,20 @@ class Profile(models.Model):
     # NEED TO REWORK MODELS. Store lists as text fields separated by ', '
     # JSON fields don't allow the same functionality as lists
 
+    def search_recipes(search_str, type):
+        results = list[Recipe]
+        recipes = Recipe.objects.all()
+        search_words = search_str.split(' ')
+        for recipe in recipes:
+            if type == 'ingredient':
+                if any(search_words) in recipe.get_ingredients:
+                    results.append(recipe)
+            if type == 'utensil':
+                if any(search_words) in recipe.get_utensils:
+                    results.append(recipe)
+        return results
+            
+
     def del_recipe(self, recipe_id):
         return 0
 
