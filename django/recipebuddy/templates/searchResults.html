@@ -1,19 +1,21 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Recipe Buddy</title>
-		<link rel = "stylesheet" href = "mystyle.css">
+		<link rel = "stylesheet" href = "{% static 'css/mystyle.css' %}">
     </head>
 	
 	
 	
 	<body>
 
-		<ul style = "background-color : rgb(204, 88, 88); list-style-type: none; overflow: hidden;">
-			<li><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
-			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app" style = "text-decoration:none;">Logout</a></li>
-			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/account-hub" style = "text-decoration:none;">My Account</a></li>
-		</ul>
+	<ul style = "background-color : #333; list-style-type: none; overflow: hidden;" class="ul">
+		<li class="li"><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;" class="li a">Home</a></li>
+		<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app" style = "text-decoration:none;" class="li a">Logout</a></li>
+		<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app/account-hub" style = "text-decoration:none;" class="li a">My Account</a></li>
+	</ul>
         
         <section style = "padding : 0.5in;">
             <center><b style="font-size: x-large;">Search:	</b><input id="input" type="search" autocomplete="off" spellcheck="true" role="combobox" aria-live="polite" placeholder="" style="width: 7in; height: 0.35in;">

@@ -1,8 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <script src="./rbp.js"></script>
-    <link rel="stylesheet" href="mystyle.css">
+    <link rel = "stylesheet" href = "{% static 'css/mystyle.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Recipe Buddy</title>
@@ -13,12 +15,11 @@
     <button type="button"> Logout</button>
     -->
 
-    <ul style = "background-color : rgb(204, 88, 88); list-style-type: none; overflow: hidden;">
-        <li><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
-        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app" style = "text-decoration:none;">Logout</a></li>
-        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/account-hub" style = "text-decoration:none;">My Account</a></li>
+    <ul style = "background-color : #333; list-style-type: none; overflow: hidden;" class="ul">
+        <li class="li"><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;" class="li a">Home</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app" style = "text-decoration:none;" class="li a">Logout</a></li>
+        <li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app/account-hub" style = "text-decoration:none;" class="li a">My Account</a></li>
     </ul>
-    </div>
 
     <!--Need to figured out how to make it interactive -->
     <center><p style="font-size:200%"><h1> {{recipe}} </h1></p>
@@ -30,14 +31,12 @@
     </center>
 </head>
 <body>
-<div class="flex-container">
 
-    <center><table style = "width:75%; border-spacing: 30px;" cellpadding = "10">
+    <center><table style = "width:50%; border-spacing: 30px;" cellpadding = "10">
 
         <tr style ="vertical-align:top;">
             <td style = "border: 1px solid black; background-color: #e6e6e6;">
-                <div class="flex-child magenta">
-                    <h1> Cooking Time: 0hr 45 min </h1>
+                    <h1 style="text-align:center;"> Cooking Time: 0hr 45 min </h1>
 
                     <ol>
                         {% for step in recipe_instructions %}
@@ -45,24 +44,20 @@
                         {% endfor %}
                     </ol>
 
-                 </div>
             </td>
 
             <td style = "border: 1px solid black; background-color: #e6e6e6;">
-                <div class="flex-child green">
-                    <h1>Utensils</h1>
+                    <h1 style="text-align:center;">Utensils</h1>
 
                     <ul>
                         {% for utn in recipe_utensils %}
                         <li>{{utn}}</li>
                         {% endfor %}
                      </ul>
-                </div>
             </td>
 
             <td style = "border: 1px solid black; background-color: #e6e6e6;">
-                <div class="flex-child green">
-                    <h1>Ingredients</h1>
+                    <h1 style="text-align:center;">Ingredients</h1>
 
                     <ul>
                         {% for ingr in recipe_ingredients %}
@@ -70,25 +65,19 @@
                         {% endfor %}
                      </ul>
 
-                </div>
             </td>
 
         </tr>
 
     </table></center>
 
-</div>
 <br>
-<div class="float-container">
 
-    <center><div class="float-child green">
+    <center>
         <label for="Write a Comment">Write a comment:</label>
         <input type="text" id="Write a Comment" name="Write a Comment"  size = 70%><br>
         <button type="button"> Send</button>
-    </div></center>
-
-</div>
-
+    </center>
 
 </body>
 

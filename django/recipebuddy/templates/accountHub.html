@@ -39,11 +39,11 @@
 	
 	<body onload="loadLinks()">
 
-		<ul style = "background-color : rgb(204, 88, 88); list-style-type: none; overflow: hidden;">
-			<li><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;">Home</a></li>
-			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/logout" style = "text-decoration:none;">Logout</a></li>
-			<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;"><a href="/app/account-hub" style = "text-decoration:none;">My Account</a></li>
-		</ul>
+	<ul style = "background-color : #333; list-style-type: none; overflow: hidden;" class="ul">
+		<li class="li"><a href="/app" style = "float:left; text-decoration:none; font-family: 'Trebuchet MS', sans-serif;" class="li a">Home</a></li>
+		<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app" style = "text-decoration:none;" class="li a">Logout</a></li>
+		<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app/account-hub" style = "text-decoration:none;" class="li a">My Account</a></li>
+	</ul>
         
         <section style = "padding : 0.1in;">
             <center><b style="font-size: 300%;">{{user.get_username}}</b></center>
