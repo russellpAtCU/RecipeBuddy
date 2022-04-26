@@ -66,8 +66,8 @@ class Recipe(models.Model):
     recipe_name = models.CharField('Recipe name', blank=True, max_length=200)
     author = models.CharField('Author', blank=True, max_length=35)
     instructions = models.TextField(verbose_name="Instructions", max_length=None)
-    #ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
-    #comments = models.JSONField(default=list[Comment], verbose_name="Comments")
+    ratings = models.JSONField(default=list[Rating], verbose_name="Ratings")
+    comments = models.JSONField(default=list[Comment], verbose_name="Comments")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     recipe_ingredients = models.TextField(verbose_name="Ingredients", max_length=300, blank=True)
     recipe_utensils = models.TextField(verbose_name="Utensils", blank=True, max_length=300)
@@ -75,6 +75,13 @@ class Recipe(models.Model):
 
     def get_recipe_utensils(self):
         return self.recipe_utensils
+
+    def get_recipe_comments(self):
+        return self.comments
+
+    def get_recipe_ratings(self):
+        return self.ratings
+
 
     def get_recipe_ingredients(self):
         return self.recipe_ingredients

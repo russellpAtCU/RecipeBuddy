@@ -116,6 +116,7 @@ def search_view(request):
 def recipe_view(request, id):
     #id = Recipe.objects.get(id=request.id)
     recipe = Recipe.objects.get(id=id)
+    recipe_comments = recipe.get_recipe_comments()
     recipe_ingredients = recipe.get_recipe_ingredients().split(', ')
     recipe_utensils = recipe.get_recipe_utensils().split(', ')
     recipe_instructions = recipe.get_recipe_instructions().split("(,)")
