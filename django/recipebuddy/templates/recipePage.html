@@ -7,6 +7,29 @@
     <link rel = "stylesheet" href = "{% static 'css/mystyle.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script>
+        function addComment() {
+            input = document.getElementById("comment box")
+            console.log(input.value)
+            if (input.value != '') {
+                newComment = document.createElement("li")
+                newComment.textContent = input.value
+                console.log(newComment.value)
+                ul = document.getElementById("comments")
+                ul.appendChild(newComment)
+                input.value = ''
+            }
+        }
+
+        function addRating() {
+            if (document.getElementById("star1").clicked == true){
+                console.log("here")
+            }
+            console.log("not")
+        }
+
+    </script>
+
     <title>Recipe Buddy</title>
     <!--
     <button type="button">HOME</button>
@@ -23,11 +46,12 @@
 
     <!--Need to figured out how to make it interactive -->
     <center><p style="font-size:200%"><h1> {{recipe}} </h1></p>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
+        <span class="fa fa-star checked" id="star1" onclick="addRating()"></span>
+        <span class="fa fa-star checked" id="star2" onclick="addRating()"></span>
+        <span class="fa fa-star checked" id="star3" onclick="addRating()"></span>
+        <span class="fa fa-star checked" id="star4" onclick="addRating()"></span>
+        <span class="fa fa-star checked" id="star5" onclick="addRating()"></span>
+       
     </center>
 </head>
 <body>
@@ -75,8 +99,9 @@
 
     <center>
         <label for="Write a Comment">Write a comment:</label>
-        <input type="text" id="Write a Comment" name="Write a Comment"  size = 70%><br>
-        <button type="button"> Send</button>
+        <input type="text" id="comment box" name="Write a Comment"  size = 70%><br>
+        <button type="button" onclick="addComment()"> Send</button>
+        <ul id="comments"></ul>
     </center>
 
 </body>
