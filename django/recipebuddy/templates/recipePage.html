@@ -11,7 +11,6 @@
         function addComment() {
             input = document.getElementById("comment_box")
             all_comments = document.getElementById("all_comments")
-            
             if (input.value != '') {
                 newComment = document.createElement("li")
                 newComment.textContent = input.value
@@ -140,10 +139,10 @@
     <center>
         <label for="Write a Comment">Write a comment:</label>
         <input type="text" id="comment_box" name="Write a Comment"  size = 70%><br>
-        <input type="hidden" name="all_comments" id="all_comments" value="{{comments}}">
+        <input type="hidden" name="all_comments" id="all_comments" value="{{recipe_comments}}">
         <button type="button" onclick="addComment()"> Send</button>
         <ul id="comments">
-            {% for comment in comments %}
+            {% for comment in recipe_comments %}
             <li>{{comment}}</li>
             {% endfor %}
         </ul>
