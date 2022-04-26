@@ -1,8 +1,6 @@
 from multiprocessing import context
 from urllib import request
-from uuid import UUID, uuid4
 import uuid
-from django.forms import UUIDField
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
@@ -13,7 +11,6 @@ from django.views.generic.base import RedirectView
 from .models import Recipe, Profile
 
 # Create views here
-# - Should migrate to view classes
 
 def search_recipes(search_str, type):
     results = list[Recipe]
@@ -88,7 +85,6 @@ def account_hub_view(request):
             recipes_ingredients.append(recipe_ingr)
             recipe_utn = recipe.get_recipe_utensils().split(', ')
             recipes_utensils.append(recipe_utn)
-
     recipe_count = recipes.__len__
 
     return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
