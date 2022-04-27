@@ -82,6 +82,17 @@ class Recipe(models.Model):
     def get_recipe_ratings(self):
         return self.ratings
 
+    def get_ingredients_as_list(self):
+        ing = self.recipe_ingredients.split(', ')
+        return ing
+    
+    def get_utensils_as_list(self):
+        utn = self.recipe_utensils.split(', ')
+        return utn
+    
+    def get_name_as_list(self):
+        keywords = self.recipe_name.split(' ')
+        return keywords
 
     def get_recipe_ingredients(self):
         return self.recipe_ingredients

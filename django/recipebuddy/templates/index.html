@@ -43,7 +43,6 @@
 
 <form name='search' method="POST" style = "padding : 0.5in;">
     <center>
-        {% block search %}
         {% csrf_token %}
         <b style="font-size: x-large;">Search:	</b>
         <input name="search_str" id="search_bar" type="search" autocomplete="off" placeholder="Select search type then list ingredients, utensils, or keywords separated by a space" role="combobox" aria-live="polite" style="width: 7in; height: 0.5in; font-size: medium;">
@@ -61,7 +60,6 @@
             <br>
             <input type="hidden" id="search_type" name="search_type">
         </div>
-        {% endblock %}
     </center>
 </form>
 

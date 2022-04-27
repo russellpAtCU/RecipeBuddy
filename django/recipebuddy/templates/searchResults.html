@@ -5,9 +5,31 @@
     <head>
         <title>Recipe Buddy</title>
 		<link rel = "stylesheet" href = "{% static 'css/mystyle.css' %}">
+
+		<script>
+			function searchType() {
+				ingredient = document.getElementById("ingredient_search")
+				utensil = document.getElementById("utensil_search")
+				keyword = document.getElementById("keyword_search")
+				search_type = document.getElementById("search_type")
+				if (ingredient.checked) {
+					search_type.value = ingredient.value
+				} else if (utensil.checked) {
+					search_type.value = utensil.value
+				} else if (keyword.checked) {
+					search_type.value = keyword.value
+				}
+			}
+		</script>
+
     </head>
 	
-	
+	<!--
+		4/27/22
+
+		- Search results need to be made dynamic such that only recipes that fit the search criteria are displayed
+
+	-->
 	
 	<body>
 
@@ -17,11 +39,28 @@
 		<li style = "float:right; font-family: 'Trebuchet MS', sans-serif;" class="li"><a href="/app/account-hub" style = "text-decoration:none;" class="li a">My Account</a></li>
 	</ul>
         
-        <section style = "padding : 0.5in;">
-            <center><b style="font-size: x-large;">Search:	</b><input id="input" type="search" autocomplete="off" spellcheck="true" role="combobox" aria-live="polite" placeholder="" style="width: 7in; height: 0.35in;">
-            <button style="height: 00.4in; width: 0.8in;">Search</button></center>
-        </section>
-		
+	<form name='search' method="POST" style = "padding : 0.5in;">
+		<center>
+			{% csrf_token %}
+			<b style="font-size: x-large;">Search:	</b>
+			<input name="search_str" id="search_bar" type="search" autocomplete="off" placeholder="Select search type then list ingredients, utensils, or keywords separated by a space" role="combobox" aria-live="polite" style="width: 7in; height: 0.5in; font-size: medium;">
+			<button type="submit" style="height: 00.4in; width: 0.8in;">Search</button>
+			<p>Search by: </p>
+			<div style="float:inline-end;">
+				<label for="ingredient_search">Ingredients</label>
+				<input type="radio" id="ingredient_search" onchange="searchType()" name="search" value="ingredient">
+				<br>
+				<label for="utensil_search">Utensils</label>
+				<input type="radio" id="utensil_search" onchange="searchType()" name="search" value="utensil">
+				<br>
+				<label for="keyword_search">Keyword</label>
+				<input type="radio" id="keyword_search" onchange="searchType()" name="search" value="keyword">
+				<br>
+				<input type="hidden" id="search_type" name="search_type">
+			</div>
+		</center>
+	</form>
+
 		<center><table style = "width:75%; border-spacing: 30px;" cellpadding = "10">
 			<tr style="height:300px; vertical-align:top;">
 				<td style = "border: 1px solid black; background-color: #e6e6e6;"><a href = "#" style ="color:black; text-decoration:none;">

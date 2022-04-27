@@ -12,33 +12,52 @@ from .models import Recipe, Profile
 
 # Create views here
 
+search_results = []
+
 def search_recipes(search_str, type):
-    results = list[Recipe]
+    results = []
     recipes = Recipe.objects.all()
     search_words = search_str.split(' ')
     for recipe in recipes:
         if type == 'ingredient':
-            if any(search_words) in recipe.get_ingredients:
+            print(recipe.get_ingredients_as_list())
+            print(any(words in search_words for words in recipe.get_ingredients_as_list()))
+            if any(words in search_words for words in recipe.get_ingredients_as_list()):
                 results.append(recipe)
         if type == 'utensil':
-            if any(search_words) in recipe.get_utensils:
+            if any(words in search_words for words in recipe.get_utensils_as_list()):
                 results.append(recipe)
         if type == 'keyword':
-            if any(search_words) in recipe.__str__:
+            if any(words in search_words for words in recipe.get_name_as_list()):
                 results.append(recipe)
-        global search_results
-        search_results = results
+    global search_results
+    search_results = results
+    print(results)
+    
     return results
+
 
 def home_view(request):
     if request.method == "POST":
-        search_type = request.GET.get('search_type')
-        search_str = (str)(request.GET.get('search_bar'))
-        search_recipes(search_str=(str)(search_str), type=search_type)
-        #search_ext = search_str.replace(' ', '+')
-        return redirect('/app/search')
+        search_type = (str)(request.POST.get('search_type'))
+        search_str = (str)(request.POST.get('search_str'))
+        search_recipes(search_str=search_str, type=search_type)
+        query_ext = search_str.replace(' ', '+')
+        return redirect(reverse('search',kwargs={'query': query_ext}))
     return render(request, "index.html", {})
 
+
+def search_view(request, query):
+    if request.method == 'POST':
+        search_type = (str)(request.POST.get('search_type'))
+        search_str = (str)(request.POST.get('search_str'))
+        results = search_recipes(search_str=search_str, type=search_type)
+        #query_ext = search_str.replace(' ', '+')
+        return redirect(reverse('search', kwargs={'query': query}))
+    else:
+        results = search_results
+    
+    return render(request, "searchResults.html", {'results': results})
 
 def create_account_view(request):
     if request.method == 'POST':
@@ -117,21 +136,7 @@ def login_view(request):
     return render(request, "login.html", {})
 
 
-def search_view(request):
-    if request.method == 'POST':
-        search_type = request.GET.get('search_type')
-        search_str = request.GET.get('search_bar')
-        results = search_recipes(search_str=search_str, type=search_type)
-        return redirect('/app/results')
-    else:
-        results = search_results
-        
-
-    return render(request, "searchResults.html", {'results': results})
-
-
 def recipe_view(request, id):
-    #id = Recipe.objects.get(id=request.id)
     recipe = Recipe.objects.get(id=id)
     recipe_comments = recipe.get_recipe_comments()
     recipe_ingredients = recipe.get_recipe_ingredients().split(', ')
