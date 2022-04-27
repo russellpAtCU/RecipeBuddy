@@ -26,9 +26,17 @@ def search_recipes(search_str, type):
         if type == 'keyword':
             if any(search_words) in recipe.__str__:
                 results.append(recipe)
+        global search_results
+        search_results = results
     return results
 
 def home_view(request):
+    if request.method == "POST":
+        search_type = request.GET.get('search_type')
+        search_str = (str)(request.GET.get('search_bar'))
+        search_recipes(search_str=(str)(search_str), type=search_type)
+        #search_ext = search_str.replace(' ', '+')
+        return redirect('/app/search')
     return render(request, "index.html", {})
 
 
@@ -110,7 +118,16 @@ def login_view(request):
 
 
 def search_view(request):
-    return render(request, "searchResults.html", {})
+    if request.method == 'POST':
+        search_type = request.GET.get('search_type')
+        search_str = request.GET.get('search_bar')
+        results = search_recipes(search_str=search_str, type=search_type)
+        return redirect('/app/results')
+    else:
+        results = search_results
+        
+
+    return render(request, "searchResults.html", {'results': results})
 
 
 def recipe_view(request, id):

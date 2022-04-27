@@ -41,10 +41,12 @@
     <h1 style="font-size: 300%;">Recipe Buddy</h1>
 </header>
 
-<form name='search' method="GET" style = "padding : 0.5in;">
+<form name='search' method="POST" style = "padding : 0.5in;">
     <center>
+        {% block search %}
+        {% csrf_token %}
         <b style="font-size: x-large;">Search:	</b>
-        <input id="search_bar" type="search" autocomplete="off" placeholder="Select search type then list ingredients, utensils, or keywords separated by a space" role="combobox" aria-live="polite" style="width: 7in; height: 0.5in; font-size: medium;">
+        <input name="search_str" id="search_bar" type="search" autocomplete="off" placeholder="Select search type then list ingredients, utensils, or keywords separated by a space" role="combobox" aria-live="polite" style="width: 7in; height: 0.5in; font-size: medium;">
         <button type="submit" style="height: 00.4in; width: 0.8in;">Search</button><br>
         <p>Search by: </p>
         <div>
@@ -57,8 +59,9 @@
             <label for="keyword_search">Keyword</label>
             <input type="radio" id="keyword_search" onchange="searchType()" name="search" value="keyword">
             <br>
-            <input type="hidden" id="search_type">
+            <input type="hidden" id="search_type" name="search_type">
         </div>
+        {% endblock %}
     </center>
 </form>
 
