@@ -9,23 +9,60 @@
 
     <script>
         function addComment() {
-            input = document.getElementById("comment box")
-            console.log(input.value)
+            input = document.getElementById("comment_box")
+            all_comments = document.getElementById("all_comments")
             if (input.value != '') {
                 newComment = document.createElement("li")
                 newComment.textContent = input.value
-                console.log(newComment.value)
+
+                if (all_comments.value != '') {
+                    all_comments.value += '(,)' + input.value
+                } else {
+                    all_comments.value += input.value
+                }
+                console.log(all_comments.value)
+                //this is broken but it will be where we add comments to the list
+
                 ul = document.getElementById("comments")
                 ul.appendChild(newComment)
                 input.value = ''
             }
         }
 
-        function addRating() {
-            if (document.getElementById("star1").clicked == true){
-                console.log("here")
+        function clickStar(star) {
+            document.getElementById("star5").setAttribute("class", "fa fa-star")
+            document.getElementById("star4").setAttribute("class", "fa fa-star")
+            document.getElementById("star3").setAttribute("class", "fa fa-star")
+            document.getElementById("star2").setAttribute("class", "fa fa-star")
+            document.getElementById("star1").setAttribute("class", "fa fa-star")
+
+            switch(star.id){
+                case "star5":
+                document.getElementById("star5").setAttribute("class", "fa fa-star checked");
+                case "star4":
+                document.getElementById("star4").setAttribute("class", "fa fa-star checked");
+                case "star3":
+                document.getElementById("star3").setAttribute("class", "fa fa-star checked");
+                case "star2":
+                document.getElementById("star2").setAttribute("class", "fa fa-star checked");
+                case "star1":
+                document.getElementById("star1").setAttribute("class", "fa fa-star checked");
+                default:
+                    break
+
             }
-            console.log("not")
+
+        }
+        function addRating(){
+            rating = 0
+            for (i = 1; i < 6; i++){
+                str = "star" + i;
+                if(document.getElementById(str).getAttribute("class") == "fa fa-star checked"){
+                    rating += 1
+                }
+            }
+            console.log(rating)
+
         }
 
     </script>
@@ -46,11 +83,13 @@
 
     <!--Need to figured out how to make it interactive -->
     <center><p style="font-size:200%"><h1> {{recipe}} </h1></p>
-        <span class="fa fa-star checked" id="star1" onclick="addRating()"></span>
-        <span class="fa fa-star checked" id="star2" onclick="addRating()"></span>
-        <span class="fa fa-star checked" id="star3" onclick="addRating()"></span>
-        <span class="fa fa-star checked" id="star4" onclick="addRating()"></span>
-        <span class="fa fa-star checked" id="star5" onclick="addRating()"></span>
+        <span class="fa fa-star" id="star1" onclick="clickStar(star1)"></span>
+        <span class="fa fa-star" id="star2" onclick="clickStar(star2)"></span>
+        <span class="fa fa-star" id="star3" onclick="clickStar(star3)"></span>
+        <span class="fa fa-star" id="star4" onclick="clickStar(star4)"></span>
+        <span class="fa fa-star" id="star5" onclick="clickStar(star5)"></span>
+        <button type="button" onclick="addRating()"> Rate</button>
+        <input type="hidden" name="all_ratings" id="all_ratings" value="{{ratings}}">
        
     </center>
 </head>
@@ -99,9 +138,14 @@
 
     <center>
         <label for="Write a Comment">Write a comment:</label>
-        <input type="text" id="comment box" name="Write a Comment"  size = 70%><br>
+        <input type="text" id="comment_box" name="Write a Comment"  size = 70%><br>
+        <input type="hidden" name="all_comments" id="all_comments" value="{{recipe_comments}}">
         <button type="button" onclick="addComment()"> Send</button>
-        <ul id="comments"></ul>
+        <ul id="comments">
+            {% for comment in recipe_comments %}
+            <li>{{comment}}</li>
+            {% endfor %}
+        </ul>
     </center>
 
 </body>
