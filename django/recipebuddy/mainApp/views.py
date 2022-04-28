@@ -118,6 +118,13 @@ def account_hub_view(request):
             recipes_utensils.append(recipe_utn)
     recipe_count = recipes.__len__  
 
+    if request.method == 'GET':
+        del_id = (str)(request.GET.get('if_delete'))
+        print(del_id)
+        profile.del_recipe(recipe_id=del_id)
+        Recipe.objects.delete(id=id)
+        return redirect(reverse('account-hub'))
+
     return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
      'recipes_ingredients':recipes_ingredients, 'recipes_utnensils':recipes_utensils, 'count':recipe_count, 'id_list':id_list})
 

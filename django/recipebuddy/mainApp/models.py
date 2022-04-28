@@ -26,7 +26,10 @@ class Profile(models.Model):
     # JSON fields don't allow the same functionality as lists
 
     def del_recipe(self, recipe_id):
-        return 0
+        if (self.recipe_ids.find(recipe_id) + 36 == ','):
+            self.recipe_ids.replace(recipe_id + ',', '')
+        else: # last in list case
+            self.recipe_ids.replace(recipe_id, '')
 
     def add_recipe(self, recipe_id):
         if self.recipe_ids == '':
