@@ -25,6 +25,8 @@ def search_recipes(search_str, type):
             if any(words in search_words for words in recipe.get_ingredients_as_list()):
                 results.append(recipe)
         if type == 'utensil':
+            print(recipe.get_utensil_as_list())
+            print(any(words in search_words for words in recipe.get_utensils_as_list()))
             if any(words in search_words for words in recipe.get_utensils_as_list()):
                 results.append(recipe)
         if type == 'keyword':
