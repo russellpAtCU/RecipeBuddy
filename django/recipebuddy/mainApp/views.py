@@ -121,8 +121,10 @@ def account_hub_view(request):
     if request.method == 'GET':
         del_id = (str)(request.GET.get('if_delete'))
         print(del_id)
+        del_id = uuid.UUID(del_id)
         profile.del_recipe(recipe_id=del_id)
-        Recipe.objects.delete(id=id)
+        to_delete = Recipe.objects.get(id=id)
+        to_delete.delete()
         return redirect(reverse('account-hub'))
 
     return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
