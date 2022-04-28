@@ -14,6 +14,7 @@ from .models import Recipe, Profile
 
 search_results = []
 
+
 def search_recipes(search_str, type):
     results = []
     recipes = Recipe.objects.all()
@@ -60,6 +61,7 @@ def search_view(request, query):
         results = search_results
     
     return render(request, "searchResults.html", {'results': results})
+
 
 def create_account_view(request):
     if request.method == 'POST':
@@ -114,7 +116,7 @@ def account_hub_view(request):
             recipes_ingredients.append(recipe_ingr)
             recipe_utn = recipe.get_recipe_utensils().split(', ')
             recipes_utensils.append(recipe_utn)
-    recipe_count = recipes.__len__
+    recipe_count = recipes.__len__  
 
     return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
      'recipes_ingredients':recipes_ingredients, 'recipes_utnensils':recipes_utensils, 'count':recipe_count, 'id_list':id_list})
