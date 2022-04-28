@@ -18,7 +18,7 @@ search_results = []
 def search_recipes(search_str, type):
     results = []
     recipes = Recipe.objects.all()
-    search_words = search_str.split(' ')
+    search_words = search_str.split(', ')
     for recipe in recipes:
         if type == 'ingredient':
             print(recipe.get_ingredients_as_list())
@@ -118,14 +118,14 @@ def account_hub_view(request):
             recipes_utensils.append(recipe_utn)
     recipe_count = recipes.__len__  
 
-    if request.method == 'GET':
-        del_id = (str)(request.GET.get('if_delete'))
-        print(del_id)
-        del_id = uuid.UUID(del_id)
-        profile.del_recipe(recipe_id=del_id)
-        to_delete = Recipe.objects.get(id=id)
-        to_delete.delete()
-        return redirect(reverse('account-hub'))
+    if request.method == 'POST':
+        del_id = request.POST.get('if_delete')
+        if del_id != '':
+            profile.del_recipe(recipe_id=del_id)
+            del_id = uuid.UUID(del_id)
+            to_delete = Recipe.objects.get(id=del_id)
+            to_delete.delete()
+            #return redirect(reverse('account-hub'))
 
     return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
      'recipes_ingredients':recipes_ingredients, 'recipes_utnensils':recipes_utensils, 'count':recipe_count, 'id_list':id_list})
