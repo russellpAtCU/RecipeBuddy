@@ -1,13 +1,9 @@
-from multiprocessing import context
-from urllib import request
 import uuid
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.urls import reverse
-from django.views.generic.base import RedirectView
 from .models import Recipe, Profile
 
 # Create views here
@@ -33,10 +29,10 @@ def search_recipes(search_str, type):
         if type == 'keyword':
             if any(words in search_words for words in recipe.get_name_as_list()):
                 results.append(recipe)
+
     global search_results
     search_results = results
-    print(results)
-    
+
     return results
 
 
@@ -118,14 +114,14 @@ def account_hub_view(request):
             recipes_utensils.append(recipe_utn)
     recipe_count = recipes.__len__  
 
-    if request.method == 'POST':
-        del_id = request.POST.get('if_delete')
-        if del_id != '':
-            profile.del_recipe(recipe_id=del_id)
-            del_id = uuid.UUID(del_id)
-            to_delete = Recipe.objects.get(id=del_id)
-            to_delete.delete()
-            #return redirect(reverse('account-hub'))
+    # if request.method == 'POST':
+    #     del_id = request.POST.get('if_delete')
+    #     if del_id != '':
+    #         profile.del_recipe(recipe_id=del_id)
+    #         del_id = uuid.UUID(del_id)
+    #         to_delete = Recipe.objects.get(id=del_id)
+    #         to_delete.delete()
+    #         #return redirect(reverse('account-hub'))
 
     return render(request, "accountHub.html", {'profile':profile, 'utensils':utensils, 'ingredients':ingredients, 'recipes':recipes,
      'recipes_ingredients':recipes_ingredients, 'recipes_utnensils':recipes_utensils, 'count':recipe_count, 'id_list':id_list})
