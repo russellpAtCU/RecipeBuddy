@@ -15,20 +15,24 @@ def search_recipes(search_str, type):
     results = []
     recipes = Recipe.objects.all()
     search_words = search_str.split(', ')
-    for recipe in recipes:
-        if type == 'ingredient':
-            print(recipe.get_ingredients_as_list())
-            print(any(words in search_words for words in recipe.get_ingredients_as_list()))
-            if any(words in search_words for words in recipe.get_ingredients_as_list()):
-                results.append(recipe)
-        if type == 'utensil':
-            print(recipe.get_utensil_as_list())
-            print(any(words in search_words for words in recipe.get_utensils_as_list()))
-            if any(words in search_words for words in recipe.get_utensils_as_list()):
-                results.append(recipe)
-        if type == 'keyword':
-            if any(words in search_words for words in recipe.get_name_as_list()):
-                results.append(recipe)
+    if search_words == ['']:
+            results = recipes
+    else:
+        for recipe in recipes:
+            
+            if type == 'ingredient':
+                print(recipe.get_ingredients_as_list())
+                print(any(words in search_words for words in recipe.get_ingredients_as_list()))
+                if any(words in search_words for words in recipe.get_ingredients_as_list()):
+                    results.append(recipe)
+            if type == 'utensil':
+                print(recipe.get_utensil_as_list())
+                print(any(words in search_words for words in recipe.get_utensils_as_list()))
+                if any(words in search_words for words in recipe.get_utensils_as_list()):
+                    results.append(recipe)
+            if type == 'keyword':
+                if any(words in search_words for words in recipe.get_name_as_list()) or any(words in search_words for words in recipe.get_utensils_as_list()) or any(words in search_words for words in recipe.get_ingredients_as_list()):
+                    results.append(recipe)
 
     global search_results
     search_results = results
@@ -41,7 +45,10 @@ def home_view(request):
         search_type = (str)(request.POST.get('search_type'))
         search_str = (str)(request.POST.get('search_str'))
         search_recipes(search_str=search_str, type=search_type)
-        query_ext = search_str.replace(' ', '+')
+        if search_str != '':
+            query_ext = search_str.replace(' ', '+')
+        else:
+            query_ext = '+'
         return redirect(reverse('search',kwargs={'query': query_ext}))
     return render(request, "index.html", {})
 
